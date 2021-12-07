@@ -3,20 +3,20 @@
 
 #include <QMainWindow>
 #include <QSerialPort>
+#include <QSerialPortInfo>
 #include <QDebug>
 #include <QMessageBox>
 #include <QToolBox>
-#include <console.h>
+#include <QWidget>
+#include <QStringList>
+#include <QComboBox>
+#include <QPlainTextEdit>
 
-
-#define CR "\r"
 
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
-
-class Console;
 
 class MainWindow : public QMainWindow
 {
@@ -42,14 +42,23 @@ private slots:
 
     void readData();
 
+    void on_pushButton_Open_COM_clicked();
+
 private:
+
+    void showStatusMessage(const QString &message);
+
     void openPort();
     void writeSerial(const QString);
     void readSerial();
 
+
     Ui::MainWindow *ui;
     QSerialPort* m_serial;
-    Console* m_console = nullptr;
+    QStringList m_listCom;
+    QLabel *m_status = nullptr;
+
+
 
 };
 #endif // MAINWINDOW_H
