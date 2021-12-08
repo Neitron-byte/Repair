@@ -47,6 +47,8 @@ private slots:
 private:
 
     void showStatusMessage(const QString &message);
+    void showStatusTest(const QString &answer);
+    void checkAnswer(const QByteArray &answer);
 
     void openPort();
     void writeSerial(const QString);
@@ -57,7 +59,7 @@ private:
     QSerialPort* m_serial;
     QStringList m_listCom;
     QLabel *m_status = nullptr;
-
+    int m_waitTimeout = 0;
 
 
 };

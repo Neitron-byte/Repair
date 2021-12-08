@@ -30,6 +30,8 @@ MainWindow::MainWindow(QWidget *parent)
     ui->toolBox_Device->setItemText(0,"E34");
     ui->toolBox_Device->setItemText(1,"E18");   
 
+    m_waitTimeout = 1000;
+
 }
 
 MainWindow::~MainWindow()
@@ -45,6 +47,40 @@ MainWindow::~MainWindow()
 void MainWindow::showStatusMessage(const QString &message)
 {
     m_status->setText(message);
+}
+
+void MainWindow::showStatusTest(const QString &answer)
+{
+    ui->plainTextEdit->appendPlainText(answer);
+}
+
+void MainWindow::checkAnswer(const QByteArray &answer)
+{
+    //showStatusTest(answer);
+    int sizeArray = answer.size();
+    //qDebug() << sizeArray;
+     QByteArray Ans;
+
+     for (int i = 0; i < sizeArray; ++i) {
+         if (answer[i] == '\n' || answer[i] == '\r'){
+             for (int j = i; j < sizeArray; ++j) {
+                 if (answer[j] != '\r'){
+                     Ans.append(answer[j]);
+                     //qDebug() << Ans[j];
+                 }
+
+             }
+             break;
+          }
+
+     }
+    QString answer_ = QString::fromUtf8(Ans);
+    //qDebug() << answer_;
+     if (answer_ == "MIC 1"){
+
+         showStatusTest("MIC is ON");
+     }
+
 }
 
 
@@ -65,11 +101,13 @@ void MainWindow::openPort()
 
 void MainWindow::readData()
 {
-    if (m_serial->waitForReadyRead(1000)){
-    const QByteArray data = m_serial->readAll();
-    ui->plainTextEdit->appendPlainText(data.data());
-
+    if (m_serial->waitForReadyRead(m_waitTimeout)) {
+        QByteArray responseData = m_serial->readAll();
+        while (m_serial->waitForReadyRead(10))
+            responseData += m_serial->readAll();
+        checkAnswer(responseData);
     }
+
 }
 
 
