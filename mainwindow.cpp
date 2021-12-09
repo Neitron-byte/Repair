@@ -18,6 +18,7 @@ MainWindow::MainWindow(QWidget *parent)
             //ui->comboBox_dev_COM->addItem(serialPortInfo.portName());
         }
 
+    //добавление в UI портов
     ui->comboBox->addItems(m_listCom);
 
     ui->statusbar->addWidget(m_status);
@@ -27,10 +28,14 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->comboBox_dev->addItems(Model);
 
+    //добавление виджетов на форму
     ui->toolBox_Device->setItemText(0,"E34");
     ui->toolBox_Device->setItemText(1,"E18");   
 
+    //таймаут
     m_waitTimeout = 1000;
+
+
 
 }
 
@@ -75,11 +80,17 @@ void MainWindow::checkAnswer(const QByteArray &answer)
 
      }
     QString answer_ = QString::fromUtf8(Ans);
-    //qDebug() << answer_;
-     if (answer_ == "MIC 1"){
 
-         showStatusTest("MIC is ON");
-     }
+    QMap <QString,QString>::Iterator it = m_command.find(answer_);
+
+    if(it != m_command.end()){
+        showStatusTest(it.value());
+    } else {
+        showStatusTest(tr("Unknown error"));
+        showStatusTest(QString::fromUtf8(answer));
+    }
+
+
 
 }
 
@@ -106,7 +117,8 @@ void MainWindow::readData()
         while (m_serial->waitForReadyRead(10))
             responseData += m_serial->readAll();
         checkAnswer(responseData);
-    }
+
+       }
 
 }
 
@@ -115,8 +127,12 @@ void MainWindow::writeSerial(const QString Request)
 {
     const QByteArray requestData = Request.toUtf8();    
     qDebug() << requestData;
+    m_serial->clear();
+
     m_serial->write(requestData);
+
 }
+
 
 //void MainWindow::readSerial()
 //{
