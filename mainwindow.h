@@ -64,20 +64,7 @@ private:
     QLabel *m_status = nullptr;
     //тайм аут для ожидания данных
     int m_waitTimeout = 0;
-    //Ожидаемые команды от девайса
-    QMap<QString,QString> m_command = {
-        {"MIC 1","PWR MIC 1 is ON"},
-        {"MIC 0","FAIL, PWR MIC 1 is OFF"},
-        {"GPSPWR 1","PWR GPS is ON"},
-        {"GPSPWR 0","FAIL! PWR GPS is OFF"},
-        {"GSMPWR 1","PWR GSM is ON"},
-        {"GSMPWR 0","FAIL! PWR GSM is OFF"},
-        {"ANINDIV 1","Divider BTN_SW_1, BTN_SW_2 is ON"},
-        {"ANINDIV 0","Fail! Divider BTN_SW_1, BTN_SW_2 is OFF"},
-        {"OUT CTRL 7-,8-","Outputs CH02_C, CH10_C is OFF"},
-        {"OUT CTRL 7-,8-","Fail! Outputs CH02_C, CH10_C could not be turned off"}
 
-    };
 
 };
 #endif // MAINWINDOW_H

@@ -61,36 +61,39 @@ void MainWindow::showStatusTest(const QString &answer)
 
 void MainWindow::checkAnswer(const QByteArray &answer)
 {
-    //showStatusTest(answer);
-    int sizeArray = answer.size();
-    //qDebug() << sizeArray;
-     QByteArray Ans;
-
-     for (int i = 0; i < sizeArray; ++i) {
-         if (answer[i] == '\n' || answer[i] == '\r'){
-             for (int j = i; j < sizeArray; ++j) {
-                 if (answer[j] != '\r'){
-                     Ans.append(answer[j]);
-                     //qDebug() << Ans[j];
-                 }
-
+    //пример ответа ":MIC1\rMIC 1\r"
+    qDebug() << answer;
+    qDebug() << answer.size();
+    if (answer.size() > 1) {
+        qDebug() << answer.count('\r');
+        int Count = answer.count('\r');
+        if (Count > 1) {
+            int Ind = answer.indexOf('\r',1);
+            for (int var = 1; var < Count +1; ++var) {
+//                if (answer[Ind +1] == ':' || Ind == -1 || (Ind+1) > answer.size()-1){
+//                    break;
+//                    qDebug() << "Fail";
+//                }
+                if (Ind >= answer.size()-1 || answer[Ind +1] == ':'){
+                    break;
+                } else {
+                int IndNext = answer.indexOf('\r',Ind+1);
+                qDebug() << Ind << ' ' << IndNext;
+                if (IndNext - Ind > 2){
+                    QByteArray ans = answer.mid(Ind+1,IndNext);
+                    QString answ = QString::fromUtf8(ans);
+                    QString Status = "Ответ: " + answ;
+                    showStatusTest(Status);
+                }
+                Ind = IndNext;
+                }
              }
-             break;
-          }
 
-     }
-    QString answer_ = QString::fromUtf8(Ans);
+        } else {
+            qDebug() << "'\r' отсутствуют в ответе";
+        }
 
-    QMap <QString,QString>::Iterator it = m_command.find(answer_);
-
-    if(it != m_command.end()){
-        showStatusTest(it.value());
-    } else {
-        showStatusTest(tr("Unknown error"));
-        showStatusTest(QString::fromUtf8(answer));
     }
-
-
 
 }
 
@@ -112,59 +115,38 @@ void MainWindow::openPort()
 
 void MainWindow::readData()
 {
+    QByteArray responseData;
+
     if (m_serial->waitForReadyRead(m_waitTimeout)) {
-        QByteArray responseData = m_serial->readAll();
+        responseData = m_serial->readAll();
         while (m_serial->waitForReadyRead(10))
             responseData += m_serial->readAll();
-        checkAnswer(responseData);
+        //checkAnswer(responseData);
 
        }
+     checkAnswer(responseData);
 
 }
 
 
-void MainWindow::writeSerial(const QString Request)
+void MainWindow::writeSerial(const QString Command)
 {
-    const QByteArray requestData = Request.toUtf8();    
-    qDebug() << requestData;
-    m_serial->clear();
+    int Ind = Command.indexOf('\r');
+    QString cmd = Command.mid(0,Ind);
+    QString Status = "Команда: " + cmd;
+    showStatusTest(Status);
 
+    const QByteArray requestData = Command.toUtf8();
+    qDebug() << requestData;
     m_serial->write(requestData);
 
 }
-
-
-//void MainWindow::readSerial()
-//{
-//    /*if (m_serial->waitForBytesWritten()) {
-//        if (m_serial->waitForReadyRead()) {
-//            QByteArray responseData = m_serial->readAll();
-//            const QString response = QString::fromUtf8(responseData);
-//            qDebug() << response;
-//        }
-//        if(m_serial->bytesAvailable() != 0){
-//            QByteArray responseData = m_serial->readAll();
-//        }
-//    }*/
-//    QByteArray responseData;
-//    while(!m_serial->atEnd()){
-//        responseData += m_serial->readAll();
-//        //const QString response = QString::fromUtf8(responseData);
-
-//        //qDebug() << response;
-//    }
-//     m_console->putData(responseData);
-//    //const QByteArray data = m_serial->readAll();
-
-
-//}
 
 
 void MainWindow::on_pushButton_BZ_ON_clicked()
 {
     const QString RequestONBZ = ":BUZ1\r";
     this->writeSerial(RequestONBZ);
-
 
 }
 
