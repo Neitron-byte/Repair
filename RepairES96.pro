@@ -1,4 +1,4 @@
-QT       += core gui serialport
+QT       += widgets core gui serialport
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -9,10 +9,12 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    console.cpp \
     main.cpp \
     mainwindow.cpp
 
 HEADERS += \
+    console.h \
     mainwindow.h
 
 FORMS += \

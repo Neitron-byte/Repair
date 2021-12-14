@@ -1,15 +1,28 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-
+#include "console.h"
+#include <QSerialPortInfo>
+#include <QDebug>
+#include <QMessageBox>
+#include <QToolBox>
+#include <QWidget>
+#include <QStringList>
+#include <QComboBox>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
+    , m_console(new Console)
+     , m_serial(new QSerialPort(this))
     , m_status(new QLabel)
+
 {
 
 
     ui->setupUi(this);
+
+    connect(m_serial, &QSerialPort::readyRead, this, &MainWindow::readData);
+    connect(m_serial, &QSerialPort::errorOccurred, this, &MainWindow::handleError);
 
     //получение доступных COM-портов
     foreach (const QSerialPortInfo &serialPortInfo, QSerialPortInfo::availablePorts())
@@ -30,11 +43,16 @@ MainWindow::MainWindow(QWidget *parent)
 
     //добавление виджетов на форму
     ui->toolBox_Device->setItemText(0,"E34");
-    ui->toolBox_Device->setItemText(1,"E18");   
+    ui->toolBox_Device->setItemText(1,"E18");
 
-    //таймаут
-    m_waitTimeout = 1000;
+    ui->verticalLayout->addWidget(m_console);
 
+    this->setWindowTitle(tr("Repair"));
+
+    ui->plainTextEdit_Comm->setReadOnly(true);
+    ui->comboBox_SIM->addItem(" ");
+    ui->comboBox_SIM->addItem("1");
+    ui->comboBox_SIM->addItem("2");
 
 
 }
@@ -54,50 +72,6 @@ void MainWindow::showStatusMessage(const QString &message)
     m_status->setText(message);
 }
 
-void MainWindow::showStatusTest(const QString &answer)
-{
-    ui->plainTextEdit->appendPlainText(answer);
-}
-
-void MainWindow::checkAnswer(const QByteArray &answer)
-{
-    //пример ответа ":MIC1\rMIC 1\r"
-    qDebug() << answer;
-    qDebug() << answer.size();
-    if (answer.size() > 1) {
-        qDebug() << answer.count('\r');
-        int Count = answer.count('\r');
-        if (Count > 1) {
-            int Ind = answer.indexOf('\r',1);
-            for (int var = 1; var < Count +1; ++var) {
-//                if (answer[Ind +1] == ':' || Ind == -1 || (Ind+1) > answer.size()-1){
-//                    break;
-//                    qDebug() << "Fail";
-//                }
-                if (Ind >= answer.size()-1 || answer[Ind +1] == ':'){
-                    break;
-                } else {
-                int IndNext = answer.indexOf('\r',Ind+1);
-                qDebug() << Ind << ' ' << IndNext;
-                if (IndNext - Ind > 2){
-                    QByteArray ans = answer.mid(Ind+1,IndNext);
-                    QString answ = QString::fromUtf8(ans);
-                    QString Status = "Ответ: " + answ;
-                    showStatusTest(Status);
-                }
-                Ind = IndNext;
-                }
-             }
-
-        } else {
-            qDebug() << "'\r' отсутствуют в ответе";
-        }
-
-    }
-
-}
-
-
 void MainWindow::openPort()
 {
     if (m_serial->open(QIODevice::ReadWrite)){
@@ -105,6 +79,12 @@ void MainWindow::openPort()
         showStatusMessage(tr("Connected to %1 : %2, %3, %4, %5, %6")
                           .arg(m_serial->portName()).arg(m_serial->baudRate()).arg(m_serial->dataBits())
                           .arg(m_serial->parity()).arg(m_serial->stopBits()).arg(m_serial->flowControl()));
+
+       m_console->putData("Соединение установлено!\r");
+       m_console->putData("Если не появилась надпись \"MCU RESET\" - перезапустите устройство\r");
+       m_console->putData("Выберите ошибку -> путем последовательной подачи команд проверяйте соответствующие цепи на ПУ\r");
+       m_console->putData("Сначала выводится команда, на следующей строке - ответ. Если на конце 1 - включение успешно, иначе 0\r");
+
 
     } else {
         qDebug() << tr ("Port not open");
@@ -115,90 +95,60 @@ void MainWindow::openPort()
 
 void MainWindow::readData()
 {
-    QByteArray responseData;
-
-    if (m_serial->waitForReadyRead(m_waitTimeout)) {
-        responseData = m_serial->readAll();
-        while (m_serial->waitForReadyRead(10))
-            responseData += m_serial->readAll();
-        //checkAnswer(responseData);
-
-       }
-     checkAnswer(responseData);
-
-}
-
-
-void MainWindow::writeSerial(const QString Command)
-{
-    int Ind = Command.indexOf('\r');
-    QString cmd = Command.mid(0,Ind);
-    QString Status = "Команда: " + cmd;
-    showStatusTest(Status);
-
-    const QByteArray requestData = Command.toUtf8();
-    qDebug() << requestData;
-    m_serial->write(requestData);
-
+    const QByteArray data = m_serial->readAll();
+    m_console->putData(data);
 }
 
 
 void MainWindow::on_pushButton_BZ_ON_clicked()
 {
-    const QString RequestONBZ = ":BUZ1\r";
-    this->writeSerial(RequestONBZ);
+    QByteArray qb (":BUZ1\r");
+    m_serial->write(qb);
 
 }
 
 
 void MainWindow::on_pushButton_BZ_OFF_clicked()
 {
-    const QString RequestOFFBZ = ":BUZ0\r";
-    this->writeSerial(RequestOFFBZ);
+    QByteArray qb (":BUZ0\r");
+    m_serial->write(qb);
 
 }
 
 
 void MainWindow::on_pushButton_GSM_ON_clicked()
 {
-    const QString RequestONGSM = ":GSMPWR1\r";
-    this->writeSerial(RequestONGSM);
 
-
+    QByteArray cmd (":GSMPWR1\r");
+    m_serial->write(cmd);
 }
 
 
 void MainWindow::on_pushButton_GPS_ON_clicked()
 {
-    const QString RequestONGPS = ":GPSPWR1\r";
-    this->writeSerial(RequestONGPS);
+    QByteArray cmd (":GPSPWR1\r");
+    m_serial->write(cmd);
 
 }
 
 
 void MainWindow::on_pushButton_MIC_PWR_clicked()
 {
-    const QString RequestONMIC = ":MIC1\r";
-    this->writeSerial(RequestONMIC);
-
+    QByteArray cmd (":MIC1\r");
+    m_serial->write(cmd);
 }
 
 
 void MainWindow::on_pushButton_ON_DIV_clicked()
 {
-    const QString RequestONDIV = ":ANINDIV1\r";
-    this->writeSerial(RequestONDIV);
-
-    const QString RequestOUT = ":OUT CTRL 7-,8-\r";
-    this->writeSerial(RequestOUT);
+    QByteArray cmd (":ANINDIV1\r");
+    m_serial->write(cmd);
 
 }
 
 
 void MainWindow::on_pushButton_Open_COM_clicked()
 {
-    m_serial = new QSerialPort();
-    connect(m_serial, &QSerialPort::readyRead, this, &MainWindow::readData);
     m_serial->setPortName(ui->comboBox->currentText());
     m_serial->setBaudRate(QSerialPort::Baud9600);
     m_serial->setParity(QSerialPort::NoParity);
@@ -210,4 +160,73 @@ void MainWindow::on_pushButton_Open_COM_clicked()
 }
 
 
+void MainWindow::handleError(QSerialPort::SerialPortError error)
+{
+    if (error == QSerialPort::ResourceError) {
+        QMessageBox::critical(this, tr("Critical Error"), m_serial->errorString());
+        closeSerialPort();
+    }
+}
+
+void MainWindow::closeSerialPort()
+{
+    if (m_serial->isOpen())
+        m_serial->close();
+    m_console->setEnabled(false);
+    showStatusMessage(tr("Disconnected"));
+}
+
+
+
+
+void MainWindow::on_toolBox_Device_currentChanged(int index)
+{
+    ui->plainTextEdit_Comm->clear();
+    qDebug() << index;
+    switch (index) {
+    case 0:
+        ui->plainTextEdit_Comm->appendPlainText("Последовательность подачи команд: GSM PWR -> GPS PWR -> MIC PWR -> ON DIV -> OUT CTRL -> BUZZER.\r");
+        ui->plainTextEdit_Comm->appendPlainText("После подачи всех команд проверьте наличие питания: GPS_PWR_C, MICPWR, NetR36_1 - 0,NetR41_2 - ~12В\r");
+        break;
+    case 1:
+        ui->plainTextEdit_Comm->appendPlainText("Последовательность подачи команд: GSM PWR -> Sel SIM -> Mode -> GSM ICCID");
+        break;
+    case 2:
+        ui->plainTextEdit_Comm->appendPlainText("Последовательность подачи команд: GSM PWR -> GPS PWR -> MIC PWR -> ON DIV -> OUT CTRL -> BUZZER");
+        break;
+    default:
+        break;
+    }
+}
+
+
+
+
+void MainWindow::on_pushButton_GSM_ON_2_clicked()
+{
+    QByteArray cmd (":GSMPWR1\r");
+    m_serial->write(cmd);
+}
+
+
+void MainWindow::on_comboBox_SIM_currentIndexChanged(int index)
+{
+
+    if (index == 1){
+        QByteArray cmd (":GSMSIM1\r");
+        m_serial->write(cmd);
+    }
+    else if(index == 2) {
+        QByteArray cmd (":GSMSIM2\r");
+        m_serial->write(cmd);
+    }
+
+}
+
+
+void MainWindow::on_pushButton_clicked()
+{
+    QByteArray cmd (":GSM ICCID?\r");
+    m_serial->write(cmd);
+}
 
