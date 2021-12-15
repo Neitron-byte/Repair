@@ -36,6 +36,7 @@ private slots:
     void on_pushButton_ON_DIV_clicked();
 
     void readData();
+    void writeData(const QByteArray &data);
 
     void on_pushButton_Open_COM_clicked();
 
@@ -45,19 +46,23 @@ private slots:
 
     void on_toolBox_Device_currentChanged(int index);
 
-
-
     void on_pushButton_GSM_ON_2_clicked();
 
     void on_comboBox_SIM_currentIndexChanged(int index);
 
     void on_pushButton_clicked();
 
+    void on_pushButton_CH02_OFF_clicked();
+
+    void openPort();
+
+    void clear();
+
 private:
 
     void showStatusMessage(const QString &message);
+    void initActionsConnections();
 
-    void openPort();
 
 
 
