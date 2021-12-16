@@ -43,9 +43,6 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->comboBox_dev->addItems(Model);
 
-    //добавление виджетов на форму
-    ui->toolBox_Device->setItemText(0,"E34");
-    ui->toolBox_Device->setItemText(1,"E18/E35");
 
     ui->verticalLayout->addWidget(m_console);
 
@@ -56,6 +53,11 @@ MainWindow::MainWindow(QWidget *parent)
     ui->toolBox_Device->setEnabled(false);
 
     initActionsConnections();
+
+    // Цвет шрифта в пояснениях
+    QPalette p = palette();
+    p.setColor(QPalette::Text, Qt::red);
+    ui->plainTextEdit_Comm->setPalette(p);
 
 }
 
@@ -229,7 +231,7 @@ void MainWindow::on_pushButton_GSM_ON_2_clicked()
     writeData(cmd);
     ui->plainTextEdit_Comm->appendPlainText("Проверьте питание SIM800 pin 34, 35 DD5 - 3,9 В\r");
     ui->plainTextEdit_Comm->appendPlainText("Проверьте наличие сигнала подтверждения pin 42 DD5 - 2,8 - 3,2 В\r");
-    ui->plainTextEdit_Comm->appendPlainText("Проверьте питание переключателя SIM - pin 16/14 DA18\r - 1,8 В");
+    ui->plainTextEdit_Comm->appendPlainText("Проверьте питание переключателя SIM - pin 16/14 DA18 - 1,8 В\r");
 
 }
 
@@ -240,12 +242,12 @@ void MainWindow::on_comboBox_SIM_currentIndexChanged(int index)
     if (index == 1){
         QByteArray cmd (":GSMSIM1\r");
         writeData(cmd);
-        ui->plainTextEdit_Comm->appendPlainText("Выбрана SIM-карта. Проверьте сигнал SIM_SEL pin 2 DA18 - 0 В \r");
+        ui->plainTextEdit_Comm->appendPlainText("Выбрана SIM-карта (SIM2 на плате). Проверьте сигнал SIM_SEL pin 2 DA18 - 0 В \r");
     }
     else if(index == 2) {
         QByteArray cmd (":GSMSIM2\r");
         writeData(cmd);
-        ui->plainTextEdit_Comm->appendPlainText("Выбрана SIM-карта или SIM-чип. Проверьте сигнал SIM_SEL pin 2 DA18 - 3,2 В \r");
+        ui->plainTextEdit_Comm->appendPlainText("Выбрана SIM-карта или SIM-чип (SIM1 на плате). Проверьте сигнал SIM_SEL pin 2 DA18 - 3,2 В \r");
     }
 
 }
@@ -269,4 +271,15 @@ void MainWindow::initActionsConnections(){
      connect(ui->action_Connect, &QAction::triggered, this, &MainWindow::on_pushButton_Open_COM_clicked);
      connect(ui->action_Disconnect, &QAction::triggered, this, &MainWindow::closeSerialPort);
      connect(ui->action_Clear,&QAction::triggered,this, &MainWindow::clear);
+}
+
+void MainWindow::initWidgets()
+{
+    //установка наименвоан виджетов на форму
+    ui->toolBox_Device->setItemText(0,"E34");
+    ui->toolBox_Device->setItemText(1,"E18/E35");
+    ui->toolBox_Device->setItemText(2,"E8");
+
+
+
 }

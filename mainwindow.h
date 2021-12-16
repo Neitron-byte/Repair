@@ -61,8 +61,10 @@ private slots:
 private:
 
     void showStatusMessage(const QString &message);
+
     void initActionsConnections();
 
+    void initWidgets();
 
 
 
