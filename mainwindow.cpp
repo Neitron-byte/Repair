@@ -53,6 +53,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->toolBox_Device->setEnabled(false);
 
     initActionsConnections();
+    initWidgets();
 
     // Цвет шрифта в пояснениях
     QPalette p = palette();
@@ -201,21 +202,31 @@ void MainWindow::closeSerialPort()
 
 void MainWindow::on_toolBox_Device_currentChanged(int index)
 {
+
+//    ui->toolBox_Device->setItemText(0,"Проверка питания");
+//    ui->toolBox_Device->setItemText(1,"E34");
+//    ui->toolBox_Device->setItemText(2,"E18/E35");
+//    ui->toolBox_Device->setItemText(3,"E8");
+//    ui->toolBox_Device->setItemText(4,"E37");
+
     ui->plainTextEdit_Comm->clear();
     qDebug() << index;
     switch (index) {
     case 0:
+        ui->plainTextEdit_Comm->appendPlainText("Напряжение питания - 12В. Проверка KL30.");
+        break;
+    case 1:        
         ui->plainTextEdit_Comm->appendPlainText("Последовательность включения: Питание GSM -> Питание GPS -> Питание MIC -> Вкл. делитель входа -> Выключить выход CH02_C -> Тест BUZZER.\r");
         ui->plainTextEdit_Comm->appendPlainText("После подачи всех команд проверьте наличие питания: GPS_PWR_C, MICPWR, NetR36_1 - 0,NetR41_2 - ~12В\r");
         break;
-    case 1:
-        ui->comboBox_SIM->addItem(" ");
-        ui->comboBox_SIM->addItem("1");
-        ui->comboBox_SIM->addItem("2");
+    case 2:
         ui->plainTextEdit_Comm->appendPlainText("Последовательность подачи команд: Включение GSM -> Выбор SIM -> Считать ICCID\r");
         break;
-    case 2:
-        ui->plainTextEdit_Comm->appendPlainText("Последовательность подачи команд: \r");
+    case 3:
+
+        break;
+    case 4:
+        ui->plainTextEdit_Comm->appendPlainText("Проверка работы твердотельного реле DA22.\r Проверьте замыкание контактов pin4,3 DA22.\r");
         break;
     default:
         break;
@@ -268,18 +279,116 @@ void MainWindow::on_pushButton_CH02_OFF_clicked()
 }
 
 void MainWindow::initActionsConnections(){
-     connect(ui->action_Connect, &QAction::triggered, this, &MainWindow::on_pushButton_Open_COM_clicked);
-     connect(ui->action_Disconnect, &QAction::triggered, this, &MainWindow::closeSerialPort);
-     connect(ui->action_Clear,&QAction::triggered,this, &MainWindow::clear);
+     connect(ui->action_Connect_2, &QAction::triggered, this, &MainWindow::on_pushButton_Open_COM_clicked);
+     connect(ui->action_Disconnect_2, &QAction::triggered, this, &MainWindow::closeSerialPort);
+     connect(ui->action_Clear_2,&QAction::triggered,this, &MainWindow::clear);
+      connect(ui->action_About,&QAction::triggered,this, &MainWindow::abouts);
 }
 
 void MainWindow::initWidgets()
 {
-    //установка наименвоан виджетов на форму
-    ui->toolBox_Device->setItemText(0,"E34");
-    ui->toolBox_Device->setItemText(1,"E18/E35");
-    ui->toolBox_Device->setItemText(2,"E8");
 
+    ui->comboBox_SIM->addItem(" ");
+    ui->comboBox_SIM->addItem("1");
+    ui->comboBox_SIM->addItem("2");
+
+    //установка наименвоан виджетов на форму
+    ui->toolBox_Device->setItemText(0,"Проверка питания");
+    ui->toolBox_Device->setItemText(1,"E34");
+    ui->toolBox_Device->setItemText(2,"E18/E35");
+    ui->toolBox_Device->setItemText(3,"E8");
+    ui->toolBox_Device->setItemText(4,"E37");
 
 
 }
+
+void MainWindow::on_pushButton_2_clicked()
+{
+    QByteArray cmd (":PWR ?\r");
+    writeData(cmd);
+}
+
+
+void MainWindow::on_pushButton_lin_split_clicked()
+{
+    QByteArray cmd (":LIN LOOP 1\r");
+    writeData(cmd);
+    ui->plainTextEdit_Comm->appendPlainText("Передача данных осуществляется по цепи LIN_C -> LIN1_C через внешнее реле. \r");
+}
+
+
+void MainWindow::on_pushButton_lin_split_2_clicked()
+{
+    QByteArray cmd (":LIN LOOP 0\r");
+    writeData(cmd);
+}
+
+
+void MainWindow::on_pushButton_lin_split_status_clicked()
+{
+    QByteArray cmd (":LIN ?\r");
+    writeData(cmd);
+
+}
+
+
+void MainWindow::on_pushButton_lin_split_OFF_exRelay_clicked()
+{
+    QByteArray cmd (":OUT CTRL 43-,44+,45+,46+\r");
+    writeData(cmd);
+     ui->plainTextEdit_Comm->appendPlainText("Проверьте LIN3_C - 0 В \r");
+}
+
+
+void MainWindow::on_pushButton_lin_split_on_clicked()
+{
+    QByteArray cmd (":LIN SPLIT 1\r");
+    writeData(cmd);
+}
+
+
+void MainWindow::on_pushButton_lin_split_off_clicked()
+{
+    QByteArray cmd (":LIN SPLIT 0\r");
+    writeData(cmd);
+}
+
+
+void MainWindow::on_pushButton_lin_split_off_relay_clicked()
+{
+    QByteArray cmd (":OUT CTRL 39+\r");
+    writeData(cmd);
+}
+
+
+void MainWindow::on_pushButton_split_status_clicked()
+{
+    QByteArray cmd (":LIN SPLIT ?\r");
+    writeData(cmd);
+}
+
+
+void MainWindow::on_pushButton_lin_split_ON_exRelay_clicked()
+{
+    QByteArray cmd (":OUT CTRL 43+\r");
+    writeData(cmd);
+    ui->plainTextEdit_Comm->appendPlainText("Проверьте LIN3_C - 12 В \r");
+}
+
+
+void MainWindow::on_pushButton_lin_split_on_relay_clicked()
+{
+    QByteArray cmd (":OUT CTRL 39-\r");
+    writeData(cmd);
+}
+
+void MainWindow::abouts()
+{
+
+        QMessageBox::about(this, tr("About Simple Terminal"),
+                           tr("The <b>Simple Terminal</b> example demonstrates how to "
+                              "use the Qt Serial Port module in modern GUI applications "
+                              "using Qt, with a menu bar, toolbars, and a status bar."));
+
+}
+

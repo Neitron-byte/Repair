@@ -27,6 +27,26 @@
     </sizepolicy>
    </property>
    <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="2" rowspan="2">
+     <layout class="QVBoxLayout" name="verticalLayout_5">
+      <item>
+       <widget class="QLabel" name="label_11">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string>Консоль</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <layout class="QVBoxLayout" name="verticalLayout"/>
+      </item>
+     </layout>
+    </item>
     <item row="0" column="0" rowspan="2">
      <layout class="QVBoxLayout" name="verticalLayout_6">
       <item>
@@ -102,15 +122,41 @@
          </size>
         </property>
         <property name="currentIndex">
-         <number>2</number>
+         <number>4</number>
         </property>
+        <widget class="QWidget" name="page_power">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>448</width>
+           <height>297</height>
+          </rect>
+         </property>
+         <attribute name="label">
+          <string>Страница</string>
+         </attribute>
+         <widget class="QPushButton" name="pushButton_2">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>10</y>
+            <width>141</width>
+            <height>23</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Напряжение питания</string>
+          </property>
+         </widget>
+        </widget>
         <widget class="QWidget" name="page_34">
          <property name="geometry">
           <rect>
            <x>0</x>
            <y>0</y>
            <width>448</width>
-           <height>324</height>
+           <height>297</height>
           </rect>
          </property>
          <property name="sizePolicy">
@@ -248,7 +294,7 @@
            <x>0</x>
            <y>0</y>
            <width>448</width>
-           <height>324</height>
+           <height>297</height>
           </rect>
          </property>
          <attribute name="label">
@@ -312,29 +358,249 @@
            <x>0</x>
            <y>0</y>
            <width>448</width>
-           <height>324</height>
+           <height>297</height>
           </rect>
          </property>
          <attribute name="label">
           <string>Страница</string>
          </attribute>
         </widget>
-        <widget class="QWidget" name="page_e3">
+        <widget class="QWidget" name="page_e37">
          <property name="geometry">
           <rect>
            <x>0</x>
            <y>0</y>
            <width>448</width>
-           <height>324</height>
+           <height>297</height>
           </rect>
          </property>
          <attribute name="label">
           <string>Страница</string>
          </attribute>
+         <widget class="QLabel" name="label_15">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>0</y>
+            <width>431</width>
+            <height>16</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Проверка интерфейса LIN (внешняя петля LIN - LIN1)</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_23">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>80</y>
+            <width>431</width>
+            <height>16</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Проверка интерфейса LIN (внутренняя петля LIN1 - LIN2)</string>
+          </property>
+         </widget>
+         <widget class="QWidget" name="layoutWidget">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>20</y>
+            <width>337</width>
+            <height>25</height>
+           </rect>
+          </property>
+          <layout class="QHBoxLayout" name="horizontalLayout_9">
+           <item>
+            <widget class="QLabel" name="label_14">
+             <property name="text">
+              <string>Тест t_lin</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButton_lin_split">
+             <property name="text">
+              <string>Вкл</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButton_lin_split_2">
+             <property name="text">
+              <string>Выкл</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer name="horizontalSpacer_3">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::Fixed</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButton_lin_split_status">
+             <property name="text">
+              <string>Статус</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QWidget" name="layoutWidget">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>50</y>
+            <width>235</width>
+            <height>25</height>
+           </rect>
+          </property>
+          <layout class="QHBoxLayout" name="horizontalLayout_10">
+           <item>
+            <widget class="QLabel" name="label_17">
+             <property name="text">
+              <string>Внешнее реле</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButton_lin_split_OFF_exRelay">
+             <property name="text">
+              <string>Выкл. реле</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButton_lin_split_ON_exRelay">
+             <property name="text">
+              <string>Вкл. реле</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QWidget" name="layoutWidget">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>110</y>
+            <width>343</width>
+            <height>25</height>
+           </rect>
+          </property>
+          <layout class="QHBoxLayout" name="horizontalLayout_11">
+           <item>
+            <widget class="QLabel" name="label_22">
+             <property name="text">
+              <string>Тест t_lin2</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButton_lin_split_on">
+             <property name="text">
+              <string>Вкл</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButton_lin_split_off">
+             <property name="text">
+              <string>Выкл</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer name="horizontalSpacer_4">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::Fixed</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButton_split_status">
+             <property name="text">
+              <string>Статус</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QWidget" name="layoutWidget">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>140</y>
+            <width>211</width>
+            <height>25</height>
+           </rect>
+          </property>
+          <layout class="QHBoxLayout" name="horizontalLayout_15">
+           <item>
+            <widget class="QLabel" name="label_24">
+             <property name="text">
+              <string>Реле DA8</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButton_lin_split_off_relay">
+             <property name="text">
+              <string>Выкл. реле</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButton_lin_split_on_relay">
+             <property name="text">
+              <string>Вкл. реле</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
         </widget>
        </widget>
       </item>
      </layout>
+    </item>
+    <item row="1" column="3">
+     <spacer name="horizontalSpacer">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeType">
+       <enum>QSizePolicy::Fixed</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>50</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
     </item>
     <item row="0" column="1">
      <spacer name="horizontalSpacer_2">
@@ -351,26 +617,6 @@
        </size>
       </property>
      </spacer>
-    </item>
-    <item row="0" column="2" rowspan="2">
-     <layout class="QVBoxLayout" name="verticalLayout_5">
-      <item>
-       <widget class="QLabel" name="label_11">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="text">
-         <string>Консоль</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <layout class="QVBoxLayout" name="verticalLayout"/>
-      </item>
-     </layout>
     </item>
     <item row="0" column="4" rowspan="2">
      <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -396,22 +642,6 @@
       </item>
      </layout>
     </item>
-    <item row="1" column="3">
-     <spacer name="horizontalSpacer">
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
-      </property>
-      <property name="sizeType">
-       <enum>QSizePolicy::Fixed</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>50</width>
-        <height>20</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
    </layout>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -423,17 +653,24 @@
      <height>21</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menu_Connect">
+   <widget class="QMenu" name="menu_Menu">
     <property name="title">
-     <string>&amp;Connect</string>
+     <string>&amp;Menu</string>
     </property>
-    <addaction name="action_Connect"/>
-    <addaction name="action_Disconnect"/>
-    <addaction name="action_Clear"/>
+    <addaction name="action_Connect_2"/>
+    <addaction name="action_Disconnect_2"/>
+    <addaction name="action_Clear_2"/>
     <addaction name="separator"/>
-    <addaction name="action_Exit_2"/>
+    <addaction name="action_Exit_3"/>
    </widget>
-   <addaction name="menu_Connect"/>
+   <widget class="QMenu" name="menu_About">
+    <property name="title">
+     <string>&amp;Help</string>
+    </property>
+    <addaction name="action_About"/>
+   </widget>
+   <addaction name="menu_Menu"/>
+   <addaction name="menu_About"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <widget class="QToolBar" name="toolBar">
@@ -447,9 +684,10 @@
     <bool>false</bool>
    </attribute>
    <addaction name="separator"/>
-   <addaction name="action_Exit_2"/>
-   <addaction name="action_Connect"/>
-   <addaction name="action_Disconnect"/>
+   <addaction name="action_Clear_2"/>
+   <addaction name="action_Connect_2"/>
+   <addaction name="action_Disconnect_2"/>
+   <addaction name="action_Exit_3"/>
   </widget>
   <action name="action_New">
    <property name="text">
@@ -466,7 +704,12 @@
     <string>&amp;Close</string>
    </property>
   </action>
-  <action name="action_Connect">
+  <action name="action_Exit">
+   <property name="text">
+    <string>&amp;Exit</string>
+   </property>
+  </action>
+  <action name="action_Connect_2">
    <property name="icon">
     <iconset resource="repair.qrc">
      <normaloff>:/Images/images/connect.png</normaloff>:/Images/images/connect.png</iconset>
@@ -475,7 +718,7 @@
     <string>&amp;Connect</string>
    </property>
   </action>
-  <action name="action_Disconnect">
+  <action name="action_Disconnect_2">
    <property name="icon">
     <iconset resource="repair.qrc">
      <normaloff>:/Images/images/disconnect.png</normaloff>:/Images/images/disconnect.png</iconset>
@@ -484,12 +727,7 @@
     <string>&amp;Disconnect</string>
    </property>
   </action>
-  <action name="action_Exit">
-   <property name="text">
-    <string>&amp;Exit</string>
-   </property>
-  </action>
-  <action name="action_Exit_2">
+  <action name="action_Exit_3">
    <property name="icon">
     <iconset resource="repair.qrc">
      <normaloff>:/Images/images/application-exit.png</normaloff>:/Images/images/application-exit.png</iconset>
@@ -498,13 +736,18 @@
     <string>&amp;Exit</string>
    </property>
   </action>
-  <action name="action_Clear">
+  <action name="action_Clear_2">
    <property name="icon">
     <iconset resource="repair.qrc">
      <normaloff>:/Images/images/clear.png</normaloff>:/Images/images/clear.png</iconset>
    </property>
    <property name="text">
     <string>&amp;Clear</string>
+   </property>
+  </action>
+  <action name="action_About">
+   <property name="text">
+    <string>&amp;About</string>
    </property>
   </action>
  </widget>
@@ -525,22 +768,6 @@
     <hint type="destinationlabel">
      <x>399</x>
      <y>299</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>action_Exit_2</sender>
-   <signal>triggered()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>close()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>542</x>
-     <y>302</y>
     </hint>
    </hints>
   </connection>

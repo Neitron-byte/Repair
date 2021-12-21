@@ -58,6 +58,30 @@ private slots:
 
     void clear();
 
+    void on_pushButton_2_clicked();
+
+    void on_pushButton_lin_split_clicked();
+
+    void on_pushButton_lin_split_2_clicked();
+
+    void on_pushButton_lin_split_status_clicked();
+
+    void on_pushButton_lin_split_OFF_exRelay_clicked();
+
+    void on_pushButton_lin_split_on_clicked();
+
+    void on_pushButton_lin_split_off_clicked();
+
+    void on_pushButton_lin_split_off_relay_clicked();
+
+    void on_pushButton_split_status_clicked();
+
+    void on_pushButton_lin_split_ON_exRelay_clicked();
+
+    void on_pushButton_lin_split_on_relay_clicked();
+
+    void abouts();
+
 private:
 
     void showStatusMessage(const QString &message);
