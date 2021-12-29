@@ -7,6 +7,7 @@
 
 
 
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -81,6 +82,18 @@ private slots:
     void on_pushButton_lin_split_on_relay_clicked();
 
     void abouts();
+
+    void on_pushButton_can_test_on_clicked();
+
+    void on_pushButton_can_test_off_clicked();
+
+    void on_pushButton_can_status_clicked();
+
+    void on_pushButton_can_OFF_exRelay_clicked();
+
+    void on_pushButton_can_ON_exRelay_clicked();
+
+    void on_pushButton_temp_clicked();
 
 private:
 

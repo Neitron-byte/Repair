@@ -122,7 +122,7 @@
          </size>
         </property>
         <property name="currentIndex">
-         <number>4</number>
+         <number>6</number>
         </property>
         <widget class="QWidget" name="page_power">
          <property name="geometry">
@@ -130,7 +130,7 @@
            <x>0</x>
            <y>0</y>
            <width>448</width>
-           <height>297</height>
+           <height>216</height>
           </rect>
          </property>
          <attribute name="label">
@@ -156,7 +156,7 @@
            <x>0</x>
            <y>0</y>
            <width>448</width>
-           <height>297</height>
+           <height>216</height>
           </rect>
          </property>
          <property name="sizePolicy">
@@ -294,7 +294,7 @@
            <x>0</x>
            <y>0</y>
            <width>448</width>
-           <height>297</height>
+           <height>216</height>
           </rect>
          </property>
          <attribute name="label">
@@ -358,12 +358,38 @@
            <x>0</x>
            <y>0</y>
            <width>448</width>
-           <height>297</height>
+           <height>216</height>
           </rect>
          </property>
          <attribute name="label">
           <string>Страница</string>
          </attribute>
+         <widget class="QLabel" name="label_20">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>0</y>
+            <width>151</width>
+            <height>16</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Тестирование температуры</string>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="pushButton_temp">
+          <property name="geometry">
+           <rect>
+            <x>170</x>
+            <y>0</y>
+            <width>75</width>
+            <height>23</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>ETEMP ?</string>
+          </property>
+         </widget>
         </widget>
         <widget class="QWidget" name="page_e37">
          <property name="geometry">
@@ -371,7 +397,7 @@
            <x>0</x>
            <y>0</y>
            <width>448</width>
-           <height>297</height>
+           <height>216</height>
           </rect>
          </property>
          <attribute name="label">
@@ -581,6 +607,123 @@
            </item>
           </layout>
          </widget>
+        </widget>
+        <widget class="QWidget" name="page_e4">
+         <attribute name="label">
+          <string>Страница</string>
+         </attribute>
+         <widget class="QWidget" name="layoutWidget_2">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>20</y>
+            <width>344</width>
+            <height>25</height>
+           </rect>
+          </property>
+          <layout class="QHBoxLayout" name="horizontalLayout_12">
+           <item>
+            <widget class="QLabel" name="label_16">
+             <property name="text">
+              <string>Тест t_can</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButton_can_test_on">
+             <property name="text">
+              <string>Вкл</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButton_can_test_off">
+             <property name="text">
+              <string>Выкл</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer name="horizontalSpacer_5">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::Fixed</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButton_can_status">
+             <property name="text">
+              <string>Статус</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QWidget" name="layoutWidget_3">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>50</y>
+            <width>235</width>
+            <height>25</height>
+           </rect>
+          </property>
+          <layout class="QHBoxLayout" name="horizontalLayout_13">
+           <item>
+            <widget class="QLabel" name="label_18">
+             <property name="text">
+              <string>Внешнее реле</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButton_can_OFF_exRelay">
+             <property name="text">
+              <string>Выкл. реле</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButton_can_ON_exRelay">
+             <property name="text">
+              <string>Вкл. реле</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QLabel" name="label_19">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>0</y>
+            <width>431</width>
+            <height>16</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Проверка интерфейса CAN (внешняя петля CAN 1 - CAN2)</string>
+          </property>
+         </widget>
+        </widget>
+        <widget class="QWidget" name="page_e2">
+         <attribute name="label">
+          <string>Страница</string>
+         </attribute>
+        </widget>
+        <widget class="QWidget" name="page_e19">
+         <attribute name="label">
+          <string>Страница</string>
+         </attribute>
         </widget>
        </widget>
       </item>

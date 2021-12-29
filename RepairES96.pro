@@ -1,4 +1,4 @@
-QT       += widgets core gui serialport
+QT       += widgets core gui serialport sql
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 

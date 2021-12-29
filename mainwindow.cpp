@@ -38,9 +38,9 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->statusbar->addWidget(m_status);
 
+    //Модели - в разработке
     QStringList Model;
     Model << "ES96"<<"A96"<<"A97";
-
     ui->comboBox_dev->addItems(Model);
 
 
@@ -81,7 +81,7 @@ void MainWindow::openPort()
 {
     if (m_serial->open(QIODevice::ReadWrite)){
         qDebug() << tr ("Port open");
-        showStatusMessage(tr("Connected to %1 : %2, %3, %4, %5, %6")
+        showStatusMessage(tr("Подключено к %1 : %2, %3, %4, %5, %6")
                           .arg(m_serial->portName()).arg(m_serial->baudRate()).arg(m_serial->dataBits())
                           .arg(m_serial->parity()).arg(m_serial->stopBits()).arg(m_serial->flowControl()));
 
@@ -203,12 +203,6 @@ void MainWindow::closeSerialPort()
 void MainWindow::on_toolBox_Device_currentChanged(int index)
 {
 
-//    ui->toolBox_Device->setItemText(0,"Проверка питания");
-//    ui->toolBox_Device->setItemText(1,"E34");
-//    ui->toolBox_Device->setItemText(2,"E18/E35");
-//    ui->toolBox_Device->setItemText(3,"E8");
-//    ui->toolBox_Device->setItemText(4,"E37");
-
     ui->plainTextEdit_Comm->clear();
     qDebug() << index;
     switch (index) {
@@ -227,6 +221,15 @@ void MainWindow::on_toolBox_Device_currentChanged(int index)
         break;
     case 4:
         ui->plainTextEdit_Comm->appendPlainText("Проверка работы твердотельного реле DA22.\r Проверьте замыкание контактов pin4,3 DA22.\r");
+        break;
+    case 5:
+
+        break;
+    case 6:
+
+        break;
+    case 7:
+        ui->plainTextEdit_Comm->appendPlainText("Проверьте на разъеме XS5 перемычки.\r");
         break;
     default:
         break;
@@ -293,13 +296,14 @@ void MainWindow::initWidgets()
     ui->comboBox_SIM->addItem("2");
 
     //установка наименвоан виджетов на форму
-    ui->toolBox_Device->setItemText(0,"Проверка питания");
-    ui->toolBox_Device->setItemText(1,"E34");
-    ui->toolBox_Device->setItemText(2,"E18/E35");
-    ui->toolBox_Device->setItemText(3,"E8");
-    ui->toolBox_Device->setItemText(4,"E37");
-
-
+    ui->toolBox_Device->setItemText(0,"E6. Тест питания.");
+    ui->toolBox_Device->setItemText(1,"E34. Проверка Buzzer.");
+    ui->toolBox_Device->setItemText(2,"E18/E35. Проверка GSM.");
+    ui->toolBox_Device->setItemText(3,"E8. Проверка входов/выходов.");
+    ui->toolBox_Device->setItemText(4,"E3/E37. Проверка LIN.");
+    ui->toolBox_Device->setItemText(5,"E4. Проверка CAN.");
+    ui->toolBox_Device->setItemText(6,"E2. Проверка памяти.");
+    ui->toolBox_Device->setItemText(7,"E19. Проверка GPS.");
 }
 
 void MainWindow::on_pushButton_2_clicked()
@@ -390,5 +394,55 @@ void MainWindow::abouts()
                               "use the Qt Serial Port module in modern GUI applications "
                               "using Qt, with a menu bar, toolbars, and a status bar."));
 
+}
+
+
+void MainWindow::on_pushButton_can_test_on_clicked()
+{
+    QByteArray cmd (":CAN LOOP 1\r");
+    writeData(cmd);
+    ui->plainTextEdit_Comm->appendPlainText("Передача данных осуществляется через внешнее реле и через цепи CAN1_H - CAN2_H и CAN1_L - CAN2_L, соединенных друг с другом через терминальный резистор 120 Ом.\r"
+"Управление реле осуществляется с помощью LIN4_C.\r");
+
+}
+
+
+void MainWindow::on_pushButton_can_test_off_clicked()
+{
+    QByteArray cmd (":CAN LOOP 0\r");
+    writeData(cmd);
+    ui->plainTextEdit_Comm->appendPlainText("Тест завершен\r");
+}
+
+
+void MainWindow::on_pushButton_can_status_clicked()
+{
+    QByteArray cmd (":CAN ?\r");
+    writeData(cmd);
+}
+
+
+void MainWindow::on_pushButton_can_OFF_exRelay_clicked()
+{
+    QByteArray cmd (":OUT CTRL 43-,44+,45+,46+\r");
+    writeData(cmd);
+     ui->plainTextEdit_Comm->appendPlainText("\r");
+}
+
+
+void MainWindow::on_pushButton_can_ON_exRelay_clicked()
+{
+    QByteArray cmd (":OUT CTRL 43+\r");
+    writeData(cmd);
+    ui->plainTextEdit_Comm->appendPlainText("Команда на замыкание внешнего реле. Проверьте LIN4_C - 12 В\r");
+}
+
+
+void MainWindow::on_pushButton_temp_clicked()
+{
+    QByteArray cmd (":ETEMP ?\r");
+    writeData(cmd);
+    ui->plainTextEdit_Comm->appendPlainText("Если в ответе ERR, то проверьте подключение внешнего датчика температуры.\r");
+    ui->plainTextEdit_Comm->appendPlainText("Возвращается температура в градусах Цельсия.\r");
 }
 
