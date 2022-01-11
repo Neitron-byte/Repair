@@ -4,15 +4,15 @@
 #include <QMainWindow>
 #include <QSerialPort>
 #include <QLabel>
-
-
-
+#include <QSqlTableModel>
+#include <QTableView>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
 
 class Console;
+class QSqlTableModel;
 
 class MainWindow : public QMainWindow
 {
@@ -98,13 +98,13 @@ private slots:
 private:
 
     void showStatusMessage(const QString &message);
+    void showStatusDb(const QString &message);
 
     void initActionsConnections();
 
     void initWidgets();
 
-
-
+    void addTables();
 
     Ui::MainWindow *ui;
     //консоль
@@ -115,8 +115,12 @@ private:
     QStringList m_listCom;
     //статус подключения к COM
     QLabel *m_status = nullptr;
-
-
+    //Статус подключения к базе
+    QLabel *m_status_db = nullptr;
+    //модель таблицы
+    QSqlTableModel *model;
+    //перечень таблиц
+    QStringList m_listTable;
 
 };
 #endif // MAINWINDOW_H

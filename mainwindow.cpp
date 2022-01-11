@@ -8,6 +8,7 @@
 #include <QWidget>
 #include <QStringList>
 #include <QComboBox>
+#include "connection.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -15,6 +16,7 @@ MainWindow::MainWindow(QWidget *parent)
     , m_console(new Console)
      , m_serial(new QSerialPort(this))
     , m_status(new QLabel)
+    , m_status_db(new QLabel)
 
 {
 
@@ -37,6 +39,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->comboBox->addItems(m_listCom);
 
     ui->statusbar->addWidget(m_status);
+    ui->statusbar->addWidget(m_status_db);
 
     //Модели - в разработке
     QStringList Model;
@@ -46,7 +49,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->verticalLayout->addWidget(m_console);
 
-    this->setWindowTitle(tr("Repair Starline"));
+    this->setWindowTitle(tr("Diagnostics Starline"));
 
     ui->plainTextEdit_Comm->setReadOnly(true);
 
@@ -60,6 +63,14 @@ MainWindow::MainWindow(QWidget *parent)
     p.setColor(QPalette::Text, Qt::red);
     ui->plainTextEdit_Comm->setPalette(p);
 
+
+    //подключение к базе
+    if(createConnection()){
+        showStatusDb(tr("Сonnection to Db is successful."));
+    } else {
+        showStatusDb(tr("connection to Db is fail."));
+    }
+
 }
 
 MainWindow::~MainWindow()
@@ -70,11 +81,17 @@ MainWindow::~MainWindow()
     }
     delete m_serial;
     delete m_status;
+    delete m_status_db;
 }
 
 void MainWindow::showStatusMessage(const QString &message)
 {
     m_status->setText(message);
+}
+
+void MainWindow::showStatusDb(const QString &message)
+{
+    m_status_db->setText(message);
 }
 
 void MainWindow::openPort()
@@ -304,6 +321,11 @@ void MainWindow::initWidgets()
     ui->toolBox_Device->setItemText(5,"E4. Проверка CAN.");
     ui->toolBox_Device->setItemText(6,"E2. Проверка памяти.");
     ui->toolBox_Device->setItemText(7,"E19. Проверка GPS.");
+}
+
+void MainWindow::addTables()
+{
+
 }
 
 void MainWindow::on_pushButton_2_clicked()
