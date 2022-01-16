@@ -16,17 +16,18 @@ SOURCES += \
 
 HEADERS += \
     comments.h \
-    connection.h \
     console.h \
     mainwindow.h
 
 FORMS += \
+    comments.ui \
     mainwindow.ui
 
 TRANSLATIONS += \
     RepairES96_ru_RU.ts
 CONFIG += lrelease
 CONFIG += embed_translations
+
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -35,3 +36,8 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RESOURCES += \
     repair.qrc
+
+DISTFILES += \
+    images/settings.ico
+
+

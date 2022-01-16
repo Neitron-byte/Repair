@@ -6,6 +6,8 @@
 #include <QLabel>
 #include <QSqlTableModel>
 #include <QTableView>
+#include "comments.h"
+
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -98,7 +100,6 @@ private slots:
 private:
 
     void showStatusMessage(const QString &message);
-    void showStatusDb(const QString &message);
 
     void initActionsConnections();
 
@@ -115,12 +116,14 @@ private:
     QStringList m_listCom;
     //статус подключения к COM
     QLabel *m_status = nullptr;
-    //Статус подключения к базе
-    QLabel *m_status_db = nullptr;
     //модель таблицы
     QSqlTableModel *model;
     //перечень таблиц
     QStringList m_listTable;
+    //Комментарии
+    comments* m_comments = nullptr;
+    //Список виджетов ошибок
+    QStringList m_errors_widget_name {"E6", "E34", "E18_35", "E8", "E3_37", "E4", "E2", "E19"};
 
 };
 #endif // MAINWINDOW_H

@@ -8,7 +8,8 @@
 #include <QWidget>
 #include <QStringList>
 #include <QComboBox>
-#include "connection.h"
+#include <QIcon>
+
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -16,7 +17,7 @@ MainWindow::MainWindow(QWidget *parent)
     , m_console(new Console)
      , m_serial(new QSerialPort(this))
     , m_status(new QLabel)
-    , m_status_db(new QLabel)
+    ,m_comments(new comments)
 
 {
 
@@ -39,7 +40,6 @@ MainWindow::MainWindow(QWidget *parent)
     ui->comboBox->addItems(m_listCom);
 
     ui->statusbar->addWidget(m_status);
-    ui->statusbar->addWidget(m_status_db);
 
     //Модели - в разработке
     QStringList Model;
@@ -51,25 +51,14 @@ MainWindow::MainWindow(QWidget *parent)
 
     this->setWindowTitle(tr("Diagnostics Starline"));
 
-    ui->plainTextEdit_Comm->setReadOnly(true);
-
     ui->toolBox_Device->setEnabled(false);
 
     initActionsConnections();
     initWidgets();
 
-    // Цвет шрифта в пояснениях
-    QPalette p = palette();
-    p.setColor(QPalette::Text, Qt::red);
-    ui->plainTextEdit_Comm->setPalette(p);
+    //комментарии и Db
+    ui->verticalLayout_4->addWidget(m_comments);
 
-
-    //подключение к базе
-    if(createConnection()){
-        showStatusDb(tr("Сonnection to Db is successful."));
-    } else {
-        showStatusDb(tr("connection to Db is fail."));
-    }
 
 }
 
@@ -81,17 +70,12 @@ MainWindow::~MainWindow()
     }
     delete m_serial;
     delete m_status;
-    delete m_status_db;
+
 }
 
 void MainWindow::showStatusMessage(const QString &message)
 {
     m_status->setText(message);
-}
-
-void MainWindow::showStatusDb(const QString &message)
-{
-    m_status_db->setText(message);
 }
 
 void MainWindow::openPort()
@@ -104,7 +88,7 @@ void MainWindow::openPort()
 
        m_console->putData("СOM порт открыт!\r");
 
-       ui->plainTextEdit_Comm->appendPlainText("Для подтверждения корректного подключения перезапустите плату и дождитесь появления в консоли - MCU RESET.\r");
+       //ui->plainTextEdit_Comm->appendPlainText("Для подтверждения корректного подключения перезапустите плату и дождитесь появления в консоли - MCU RESET.\r");
        //ui->plainTextEdit_Comm->appendPlainText("Выберите ошибку -> путем последовательной подачи команд проверяйте соответствующие цепи на ПУ\r");
        //ui->plainTextEdit_Comm->appendPlainText("Сначала выводится команда, на следующей строке - ответ. Если на конце ответа 1 - включение успешно, иначе 0\r");
        ui->toolBox_Device->setEnabled(true);
@@ -120,7 +104,7 @@ void MainWindow::openPort()
 void MainWindow::clear()
 {
     m_console->clear();
-    ui->plainTextEdit_Comm->clear();
+    //ui->plainTextEdit_Comm->clear();
 
 }
 
@@ -158,8 +142,8 @@ void MainWindow::on_pushButton_GSM_ON_clicked()
 
     QByteArray cmd (":GSMPWR1\r");
     writeData(cmd);
-    ui->plainTextEdit_Comm->appendPlainText("Проверьте питание SIM800 pin 34, 35 DD5 - 3,9 В\r");
-    ui->plainTextEdit_Comm->appendPlainText("Проверьте наличие сигнала подтверждения pin 42 DD5 - 2,8 - 3,2 В\r");
+    //ui->plainTextEdit_Comm->appendPlainText("Проверьте питание SIM800 pin 34, 35 DD5 - 3,9 В\r");
+    //ui->plainTextEdit_Comm->appendPlainText("Проверьте наличие сигнала подтверждения pin 42 DD5 - 2,8 - 3,2 В\r");
 }
 
 
@@ -219,38 +203,9 @@ void MainWindow::closeSerialPort()
 
 void MainWindow::on_toolBox_Device_currentChanged(int index)
 {
+    m_comments->setCurrentTable(m_errors_widget_name.at(index));
 
-    ui->plainTextEdit_Comm->clear();
-    qDebug() << index;
-    switch (index) {
-    case 0:
-        ui->plainTextEdit_Comm->appendPlainText("Напряжение питания - 12В. Проверка KL30.");
-        break;
-    case 1:        
-        ui->plainTextEdit_Comm->appendPlainText("Последовательность включения: Питание GSM -> Питание GPS -> Питание MIC -> Вкл. делитель входа -> Выключить выход CH02_C -> Тест BUZZER.\r");
-        ui->plainTextEdit_Comm->appendPlainText("После подачи всех команд проверьте наличие питания: GPS_PWR_C, MICPWR, NetR36_1 - 0,NetR41_2 - ~12В\r");
-        break;
-    case 2:
-        ui->plainTextEdit_Comm->appendPlainText("Последовательность подачи команд: Включение GSM -> Выбор SIM -> Считать ICCID\r");
-        break;
-    case 3:
 
-        break;
-    case 4:
-        ui->plainTextEdit_Comm->appendPlainText("Проверка работы твердотельного реле DA22.\r Проверьте замыкание контактов pin4,3 DA22.\r");
-        break;
-    case 5:
-
-        break;
-    case 6:
-
-        break;
-    case 7:
-        ui->plainTextEdit_Comm->appendPlainText("Проверьте на разъеме XS5 перемычки.\r");
-        break;
-    default:
-        break;
-    }
 }
 
 
@@ -260,9 +215,9 @@ void MainWindow::on_pushButton_GSM_ON_2_clicked()
 {
     QByteArray cmd (":GSMPWR1\r");    
     writeData(cmd);
-    ui->plainTextEdit_Comm->appendPlainText("Проверьте питание SIM800 pin 34, 35 DD5 - 3,9 В\r");
-    ui->plainTextEdit_Comm->appendPlainText("Проверьте наличие сигнала подтверждения pin 42 DD5 - 2,8 - 3,2 В\r");
-    ui->plainTextEdit_Comm->appendPlainText("Проверьте питание переключателя SIM - pin 16/14 DA18 - 1,8 В\r");
+    //ui->plainTextEdit_Comm->appendPlainText("Проверьте питание SIM800 pin 34, 35 DD5 - 3,9 В\r");
+    //ui->plainTextEdit_Comm->appendPlainText("Проверьте наличие сигнала подтверждения pin 42 DD5 - 2,8 - 3,2 В\r");
+    //ui->plainTextEdit_Comm->appendPlainText("Проверьте питание переключателя SIM - pin 16/14 DA18 - 1,8 В\r");
 
 }
 
@@ -273,12 +228,12 @@ void MainWindow::on_comboBox_SIM_currentIndexChanged(int index)
     if (index == 1){
         QByteArray cmd (":GSMSIM1\r");
         writeData(cmd);
-        ui->plainTextEdit_Comm->appendPlainText("Выбрана SIM-карта (SIM2 на плате). Проверьте сигнал SIM_SEL pin 2 DA18 - 0 В \r");
+        //ui->plainTextEdit_Comm->appendPlainText("Выбрана SIM-карта (SIM2 на плате). Проверьте сигнал SIM_SEL pin 2 DA18 - 0 В \r");
     }
     else if(index == 2) {
         QByteArray cmd (":GSMSIM2\r");
         writeData(cmd);
-        ui->plainTextEdit_Comm->appendPlainText("Выбрана SIM-карта или SIM-чип (SIM1 на плате). Проверьте сигнал SIM_SEL pin 2 DA18 - 3,2 В \r");
+        //ui->plainTextEdit_Comm->appendPlainText("Выбрана SIM-карта или SIM-чип (SIM1 на плате). Проверьте сигнал SIM_SEL pin 2 DA18 - 3,2 В \r");
     }
 
 }
@@ -288,7 +243,7 @@ void MainWindow::on_pushButton_clicked()
 {
     QByteArray cmd (":GSM ICCID?\r");
     writeData(cmd);
-    ui->plainTextEdit_Comm->appendPlainText("Сверьте полученный ICCID с номером на SIM-карте или SIM-чипе \r");
+    //ui->plainTextEdit_Comm->appendPlainText("Сверьте полученный ICCID с номером на SIM-карте или SIM-чипе \r");
 }
 
 
@@ -308,19 +263,18 @@ void MainWindow::initActionsConnections(){
 void MainWindow::initWidgets()
 {
 
+
+
+    //установка наименвоан виджетов на форму
+    qDebug() << "Названия";
+    for (int var = 0; var < m_errors_widget_name.size(); ++var) {
+        //qDebug() << m_errors_widget_name.at(var);
+        ui->toolBox_Device->setItemText(var,m_errors_widget_name.at(var));
+    }
+
     ui->comboBox_SIM->addItem(" ");
     ui->comboBox_SIM->addItem("1");
     ui->comboBox_SIM->addItem("2");
-
-    //установка наименвоан виджетов на форму
-    ui->toolBox_Device->setItemText(0,"E6. Тест питания.");
-    ui->toolBox_Device->setItemText(1,"E34. Проверка Buzzer.");
-    ui->toolBox_Device->setItemText(2,"E18/E35. Проверка GSM.");
-    ui->toolBox_Device->setItemText(3,"E8. Проверка входов/выходов.");
-    ui->toolBox_Device->setItemText(4,"E3/E37. Проверка LIN.");
-    ui->toolBox_Device->setItemText(5,"E4. Проверка CAN.");
-    ui->toolBox_Device->setItemText(6,"E2. Проверка памяти.");
-    ui->toolBox_Device->setItemText(7,"E19. Проверка GPS.");
 }
 
 void MainWindow::addTables()
@@ -339,7 +293,7 @@ void MainWindow::on_pushButton_lin_split_clicked()
 {
     QByteArray cmd (":LIN LOOP 1\r");
     writeData(cmd);
-    ui->plainTextEdit_Comm->appendPlainText("Передача данных осуществляется по цепи LIN_C -> LIN1_C через внешнее реле. \r");
+    //ui->plainTextEdit_Comm->appendPlainText("Передача данных осуществляется по цепи LIN_C -> LIN1_C через внешнее реле. \r");
 }
 
 
@@ -362,7 +316,7 @@ void MainWindow::on_pushButton_lin_split_OFF_exRelay_clicked()
 {
     QByteArray cmd (":OUT CTRL 43-,44+,45+,46+\r");
     writeData(cmd);
-     ui->plainTextEdit_Comm->appendPlainText("Проверьте LIN3_C - 0 В \r");
+     //ui->plainTextEdit_Comm->appendPlainText("Проверьте LIN3_C - 0 В \r");
 }
 
 
@@ -398,7 +352,7 @@ void MainWindow::on_pushButton_lin_split_ON_exRelay_clicked()
 {
     QByteArray cmd (":OUT CTRL 43+\r");
     writeData(cmd);
-    ui->plainTextEdit_Comm->appendPlainText("Проверьте LIN3_C - 12 В \r");
+    //ui->plainTextEdit_Comm->appendPlainText("Проверьте LIN3_C - 12 В \r");
 }
 
 
@@ -411,10 +365,10 @@ void MainWindow::on_pushButton_lin_split_on_relay_clicked()
 void MainWindow::abouts()
 {
 
-        QMessageBox::about(this, tr("About Simple Terminal"),
-                           tr("The <b>Simple Terminal</b> example demonstrates how to "
-                              "use the Qt Serial Port module in modern GUI applications "
-                              "using Qt, with a menu bar, toolbars, and a status bar."));
+        QMessageBox::about(this, tr("Приложениe диагностики Starline."),
+                           tr("Приложение разработано для диагностики изделий Starline: ОБ ES96,S96.\r"
+                              "Разработал инженер по тестированию НПО \"Starline\" - Якимов Николай Анатольевич. \r"
+                              "E-mail: yakimov.na@starline.ru \r"));
 
 }
 
@@ -423,8 +377,7 @@ void MainWindow::on_pushButton_can_test_on_clicked()
 {
     QByteArray cmd (":CAN LOOP 1\r");
     writeData(cmd);
-    ui->plainTextEdit_Comm->appendPlainText("Передача данных осуществляется через внешнее реле и через цепи CAN1_H - CAN2_H и CAN1_L - CAN2_L, соединенных друг с другом через терминальный резистор 120 Ом.\r"
-"Управление реле осуществляется с помощью LIN4_C.\r");
+    //ui->plainTextEdit_Comm->appendPlainText("Передача данных осуществляется через внешнее реле и через цепи CAN1_H - CAN2_H и CAN1_L - CAN2_L, соединенных друг с другом через терминальный резистор 120 Ом.\r" "Управление реле осуществляется с помощью LIN4_C.\r");
 
 }
 
@@ -433,7 +386,7 @@ void MainWindow::on_pushButton_can_test_off_clicked()
 {
     QByteArray cmd (":CAN LOOP 0\r");
     writeData(cmd);
-    ui->plainTextEdit_Comm->appendPlainText("Тест завершен\r");
+    //ui->plainTextEdit_Comm->appendPlainText("Тест завершен\r");
 }
 
 
@@ -448,7 +401,7 @@ void MainWindow::on_pushButton_can_OFF_exRelay_clicked()
 {
     QByteArray cmd (":OUT CTRL 43-,44+,45+,46+\r");
     writeData(cmd);
-     ui->plainTextEdit_Comm->appendPlainText("\r");
+    //ui->plainTextEdit_Comm->appendPlainText("\r");
 }
 
 
@@ -456,7 +409,7 @@ void MainWindow::on_pushButton_can_ON_exRelay_clicked()
 {
     QByteArray cmd (":OUT CTRL 43+\r");
     writeData(cmd);
-    ui->plainTextEdit_Comm->appendPlainText("Команда на замыкание внешнего реле. Проверьте LIN4_C - 12 В\r");
+    //ui->plainTextEdit_Comm->appendPlainText("Команда на замыкание внешнего реле. Проверьте LIN4_C - 12 В\r");
 }
 
 
@@ -464,7 +417,7 @@ void MainWindow::on_pushButton_temp_clicked()
 {
     QByteArray cmd (":ETEMP ?\r");
     writeData(cmd);
-    ui->plainTextEdit_Comm->appendPlainText("Если в ответе ERR, то проверьте подключение внешнего датчика температуры.\r");
-    ui->plainTextEdit_Comm->appendPlainText("Возвращается температура в градусах Цельсия.\r");
+    //ui->plainTextEdit_Comm->appendPlainText("Если в ответе ERR, то проверьте подключение внешнего датчика температуры.\r");
+    //ui->plainTextEdit_Comm->appendPlainText("Возвращается температура в градусах Цельсия.\r");
 }
 

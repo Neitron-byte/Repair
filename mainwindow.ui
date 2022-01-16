@@ -60,7 +60,7 @@
            </sizepolicy>
           </property>
           <property name="text">
-           <string>COM</string>
+           <string>COM - порт</string>
           </property>
          </widget>
         </item>
@@ -74,7 +74,7 @@
         <item>
          <widget class="QPushButton" name="pushButton_Open_COM">
           <property name="text">
-           <string>Open</string>
+           <string>Открыть</string>
           </property>
          </widget>
         </item>
@@ -91,7 +91,7 @@
            </sizepolicy>
           </property>
           <property name="text">
-           <string>Select Device</string>
+           <string>Устройство</string>
           </property>
          </widget>
         </item>
@@ -122,14 +122,14 @@
          </size>
         </property>
         <property name="currentIndex">
-         <number>3</number>
+         <number>7</number>
         </property>
         <widget class="QWidget" name="page_power">
          <property name="geometry">
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>448</width>
+           <width>896</width>
            <height>216</height>
           </rect>
          </property>
@@ -155,7 +155,7 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>448</width>
+           <width>896</width>
            <height>216</height>
           </rect>
          </property>
@@ -293,7 +293,7 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>448</width>
+           <width>896</width>
            <height>216</height>
           </rect>
          </property>
@@ -357,7 +357,7 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>448</width>
+           <width>896</width>
            <height>216</height>
           </rect>
          </property>
@@ -396,7 +396,7 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>448</width>
+           <width>896</width>
            <height>216</height>
           </rect>
          </property>
@@ -613,7 +613,7 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>448</width>
+           <width>896</width>
            <height>216</height>
           </rect>
          </property>
@@ -728,7 +728,7 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>448</width>
+           <width>896</width>
            <height>216</height>
           </rect>
          </property>
@@ -741,7 +741,7 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>448</width>
+           <width>896</width>
            <height>216</height>
           </rect>
          </property>
@@ -786,28 +786,7 @@
      </spacer>
     </item>
     <item row="0" column="4" rowspan="2">
-     <layout class="QVBoxLayout" name="verticalLayout_4">
-      <item>
-       <widget class="QLabel" name="label_12">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="text">
-         <string>Пояснения</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPlainTextEdit" name="plainTextEdit_Comm">
-        <property name="plainText">
-         <string/>
-        </property>
-       </widget>
-      </item>
-     </layout>
+     <layout class="QVBoxLayout" name="verticalLayout_4"/>
     </item>
    </layout>
   </widget>
