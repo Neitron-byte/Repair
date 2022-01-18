@@ -59,7 +59,8 @@ MainWindow::MainWindow(QWidget *parent)
     //комментарии и Db
     ui->verticalLayout_4->addWidget(m_comments);
 
-
+    //лист виджетов
+    //ui->listWidget_radiobutton->addItem()
 }
 
 MainWindow::~MainWindow()
@@ -419,5 +420,46 @@ void MainWindow::on_pushButton_temp_clicked()
     writeData(cmd);
     //ui->plainTextEdit_Comm->appendPlainText("Если в ответе ERR, то проверьте подключение внешнего датчика температуры.\r");
     //ui->plainTextEdit_Comm->appendPlainText("Возвращается температура в градусах Цельсия.\r");
+}
+
+
+
+
+void MainWindow::on_pushButton_out_on_clicked()
+{
+    if (ui->radioButton_acc->isChecked()){
+        QByteArray cmd (":OUT CTRL 23+\r");
+        writeData(cmd);
+    }
+
+
+}
+
+
+void MainWindow::on_pushButton_out_off_clicked()
+{
+    QByteArray cmd (":OUT CTRL 23-\r");
+    writeData(cmd);
+}
+
+
+void MainWindow::on_pushButton_3_clicked()
+{
+    QByteArray cmd (":GSM?\r");
+    writeData(cmd);
+}
+
+
+void MainWindow::on_pushButton_gsm_mode_clicked()
+{
+    QByteArray cmd (":GSM MODE1\r");
+    writeData(cmd);
+}
+
+
+void MainWindow::on_pushButton_4_clicked()
+{
+    QByteArray cmd (":GSM RESET\r");
+    writeData(cmd);
 }
 

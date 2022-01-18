@@ -61,6 +61,7 @@ Console::Console(QWidget *parent) :
     p.setColor(QPalette::Base, Qt::black);
     p.setColor(QPalette::Text, Qt::green);
     setPalette(p);
+    this->setFixedWidth(300);
 }
 
 void Console::putData(const QByteArray &data)
