@@ -49,7 +49,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->verticalLayout->addWidget(m_console);
 
-    this->setWindowTitle(tr("Diagnostics Starline"));
+    this->setWindowTitle(tr("Diagnostic Soft Starline"));
 
     ui->toolBox_Device->setEnabled(false);
 
@@ -61,6 +61,18 @@ MainWindow::MainWindow(QWidget *parent)
 
     //лист виджетов
     //ui->listWidget_radiobutton->addItem()
+    //
+    ui->checkBox_23->setProperty("id",23);
+    ui->checkBox_24->setProperty("id",24);
+    ui->checkBox_25->setProperty("id",25);
+    ui->checkBox_31->setProperty("id",31);
+    ui->checkBox_32->setProperty("id",32);
+
+    m_vector_check_starter.push_back(ui->checkBox_23);
+    m_vector_check_starter.push_back(ui->checkBox_24);
+    m_vector_check_starter.push_back(ui->checkBox_25);
+    m_vector_check_starter.push_back(ui->checkBox_31);
+    m_vector_check_starter.push_back(ui->checkBox_32);
 }
 
 MainWindow::~MainWindow()
@@ -427,10 +439,10 @@ void MainWindow::on_pushButton_temp_clicked()
 
 void MainWindow::on_pushButton_out_on_clicked()
 {
-    if (ui->radioButton_acc->isChecked()){
-        QByteArray cmd (":OUT CTRL 23+\r");
-        writeData(cmd);
-    }
+//    if (ui->radioButton_acc->isChecked()){
+//        QByteArray cmd (":OUT CTRL 23+\r");
+//        writeData(cmd);
+//    }
 
 
 }
@@ -460,6 +472,32 @@ void MainWindow::on_pushButton_gsm_mode_clicked()
 void MainWindow::on_pushButton_4_clicked()
 {
     QByteArray cmd (":GSM RESET\r");
+    writeData(cmd);
+}
+
+
+void MainWindow::on_pushButton_ON_clicked()
+{
+    QByteArray cmd (":OUT CTRL ");
+    for (int var = 0; var < m_vector_check_starter.size(); ++var) {
+        if (m_vector_check_starter[var]->isChecked()){
+            qDebug() << "Выбран " << m_vector_check_starter[var]->property("id").toInt();
+            cmd += m_vector_check_starter[var]->property("id").toByteArray();
+            cmd += "+,";
+        } else {
+            cmd += m_vector_check_starter[var]->property("id").toByteArray();
+            cmd += "-,";
+        }
+
+    }
+    cmd+="\r";
+    writeData(cmd);
+}
+
+
+void MainWindow::on_pushButton_IN_clicked()
+{
+    QByteArray cmd (":IN?\r");
     writeData(cmd);
 }
 

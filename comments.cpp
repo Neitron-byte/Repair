@@ -9,7 +9,7 @@
 
 void comments::connectionDB()
 {
-    m_db = QSqlDatabase::addDatabase("QSQLITE");
+    m_db = QSqlDatabase::addDatabase("QSQLITE","SQLITE");
     m_db.setDatabaseName("errors");
     if (!m_db.open()) {
         QMessageBox::critical(nullptr, QObject::tr("Cannot open database"),

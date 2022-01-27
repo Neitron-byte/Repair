@@ -6,6 +6,8 @@
 #include <QLabel>
 #include <QSqlTableModel>
 #include <QTableView>
+#include <QVector>
+#include <QCheckBox>
 #include "comments.h"
 
 
@@ -109,6 +111,10 @@ private slots:
 
     void on_pushButton_4_clicked();
 
+    void on_pushButton_ON_clicked();
+
+    void on_pushButton_IN_clicked();
+
 private:
 
     void showStatusMessage(const QString &message);
@@ -136,6 +142,8 @@ private:
     comments* m_comments = nullptr;
     //Список виджетов ошибок
     QStringList m_errors_widget_name {"E6", "E34", "E18_35", "E8", "E3_37", "E4", "E2", "E19"};
+    //для стартера
+    QVector<QCheckBox*> m_vector_check_starter;
 
 };
 #endif // MAINWINDOW_H
