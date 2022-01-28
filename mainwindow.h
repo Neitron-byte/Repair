@@ -99,12 +99,6 @@ private slots:
 
     void on_pushButton_temp_clicked();
 
-
-
-    void on_pushButton_out_on_clicked();
-
-    void on_pushButton_out_off_clicked();
-
     void on_pushButton_3_clicked();
 
     void on_pushButton_gsm_mode_clicked();

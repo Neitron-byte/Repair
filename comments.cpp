@@ -9,7 +9,7 @@
 
 void comments::connectionDB()
 {
-    m_db = QSqlDatabase::addDatabase("QSQLITE","SQLITE");
+    m_db = QSqlDatabase::addDatabase("QSQLITE");
     m_db.setDatabaseName("errors");
     if (!m_db.open()) {
         QMessageBox::critical(nullptr, QObject::tr("Cannot open database"),
@@ -80,6 +80,7 @@ void comments::setCurrentTable(const QString & table)
 
         if (!m_listTable.contains(table)){
             createTables(table);
+            m_listTable << table;
             qDebug() << "Создание таблицы" << table;
         }
         //qDebug() << arg;
@@ -109,9 +110,10 @@ void comments::setCurrentTable(const QString & table)
 
 void comments::on_pushButton_add_comm_clicked()
 {
-    QString comm = ui->plainTextEdit_comments->toPlainText();
+    //QString comm = ui->plainTextEdit_comments->toPlainText();
     QSqlQuery query;
     qDebug() << ui->plainTextEdit_comments->toPlainText();
+    qDebug() <<"m_current" << m_currentTable;
     query.exec(QString("INSERT INTO %1 (description) VALUES ('%2')").arg(m_currentTable).arg(ui->plainTextEdit_comments->toPlainText()));
     //query.exec(QString("INSERT INTO %1 (description) VALUES ('ETEST comment');").arg(table));
     ui->plainTextEdit_comments->clear();

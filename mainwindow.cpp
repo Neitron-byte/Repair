@@ -435,26 +435,6 @@ void MainWindow::on_pushButton_temp_clicked()
 }
 
 
-
-
-void MainWindow::on_pushButton_out_on_clicked()
-{
-//    if (ui->radioButton_acc->isChecked()){
-//        QByteArray cmd (":OUT CTRL 23+\r");
-//        writeData(cmd);
-//    }
-
-
-}
-
-
-void MainWindow::on_pushButton_out_off_clicked()
-{
-    QByteArray cmd (":OUT CTRL 23-\r");
-    writeData(cmd);
-}
-
-
 void MainWindow::on_pushButton_3_clicked()
 {
     QByteArray cmd (":GSM?\r");
