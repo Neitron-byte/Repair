@@ -107,7 +107,13 @@ private slots:
 
     void on_pushButton_ON_clicked();
 
-    void on_pushButton_IN_clicked();
+    void on_pushButton_IN_clicked();    
+
+    void on_pushButton_start_clicked();
+
+    void on_pushButton_stop_clicked();
+
+    void on_pushButton_status_clicked();
 
 private:
 
@@ -135,7 +141,7 @@ private:
     //Комментарии
     comments* m_comments = nullptr;
     //Список виджетов ошибок
-    QStringList m_errors_widget_name {"E6", "E34", "E18_35", "E8", "E3_37", "E4", "E2", "E19"};
+    QStringList m_errors_widget_name {"E6", "E34", "E18_35", "E8", "E3_37", "E4", "E2", "E19", "E32"};
     //для стартера
     QVector<QCheckBox*> m_vector_check_starter;
 

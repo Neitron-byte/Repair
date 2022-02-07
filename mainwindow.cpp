@@ -105,7 +105,8 @@ void MainWindow::openPort()
        //ui->plainTextEdit_Comm->appendPlainText("Выберите ошибку -> путем последовательной подачи команд проверяйте соответствующие цепи на ПУ\r");
        //ui->plainTextEdit_Comm->appendPlainText("Сначала выводится команда, на следующей строке - ответ. Если на конце ответа 1 - включение успешно, иначе 0\r");
        ui->toolBox_Device->setEnabled(true);
-
+       int ind = ui->toolBox_Device->currentIndex();
+       m_comments->setCurrentTable(m_errors_widget_name.at(ind));
 
     } else {
         qDebug() << tr ("Port not open");
@@ -478,6 +479,26 @@ void MainWindow::on_pushButton_ON_clicked()
 void MainWindow::on_pushButton_IN_clicked()
 {
     QByteArray cmd (":IN?\r");
+    writeData(cmd);
+}
+
+void MainWindow::on_pushButton_start_clicked()
+{
+    QByteArray cmd (":BLE START\r");
+    writeData(cmd);
+}
+
+
+void MainWindow::on_pushButton_stop_clicked()
+{
+    QByteArray cmd (":BLE STOP\r");
+    writeData(cmd);
+}
+
+
+void MainWindow::on_pushButton_status_clicked()
+{
+    QByteArray cmd (":BLE ?\r");
     writeData(cmd);
 }
 
