@@ -49,7 +49,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->verticalLayout->addWidget(m_console);
 
-    this->setWindowTitle(tr("Diagnostic Soft Starline"));
+    this->setWindowTitle(tr("Diagnostic Software Starline"));
 
     ui->toolBox_Device->setEnabled(false);
 
@@ -60,8 +60,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->verticalLayout_4->addWidget(m_comments);
 
     //лист виджетов
-    //ui->listWidget_radiobutton->addItem()
-    //
+
     ui->checkBox_23->setProperty("id",23);
     ui->checkBox_24->setProperty("id",24);
     ui->checkBox_25->setProperty("id",25);
@@ -99,11 +98,7 @@ void MainWindow::openPort()
                           .arg(m_serial->portName()).arg(m_serial->baudRate()).arg(m_serial->dataBits())
                           .arg(m_serial->parity()).arg(m_serial->stopBits()).arg(m_serial->flowControl()));
 
-       m_console->putData("СOM порт открыт!\r");
-
-       //ui->plainTextEdit_Comm->appendPlainText("Для подтверждения корректного подключения перезапустите плату и дождитесь появления в консоли - MCU RESET.\r");
-       //ui->plainTextEdit_Comm->appendPlainText("Выберите ошибку -> путем последовательной подачи команд проверяйте соответствующие цепи на ПУ\r");
-       //ui->plainTextEdit_Comm->appendPlainText("Сначала выводится команда, на следующей строке - ответ. Если на конце ответа 1 - включение успешно, иначе 0\r");
+       m_console->putData("СOM порт открыт!\r");       
        ui->toolBox_Device->setEnabled(true);
        int ind = ui->toolBox_Device->currentIndex();
        m_comments->setCurrentTable(m_errors_widget_name.at(ind));
@@ -118,7 +113,6 @@ void MainWindow::openPort()
 void MainWindow::clear()
 {
     m_console->clear();
-    //ui->plainTextEdit_Comm->clear();
 
 }
 
@@ -156,8 +150,7 @@ void MainWindow::on_pushButton_GSM_ON_clicked()
 
     QByteArray cmd (":GSMPWR1\r");
     writeData(cmd);
-    //ui->plainTextEdit_Comm->appendPlainText("Проверьте питание SIM800 pin 34, 35 DD5 - 3,9 В\r");
-    //ui->plainTextEdit_Comm->appendPlainText("Проверьте наличие сигнала подтверждения pin 42 DD5 - 2,8 - 3,2 В\r");
+
 }
 
 
@@ -229,9 +222,6 @@ void MainWindow::on_pushButton_GSM_ON_2_clicked()
 {
     QByteArray cmd (":GSMPWR1\r");    
     writeData(cmd);
-    //ui->plainTextEdit_Comm->appendPlainText("Проверьте питание SIM800 pin 34, 35 DD5 - 3,9 В\r");
-    //ui->plainTextEdit_Comm->appendPlainText("Проверьте наличие сигнала подтверждения pin 42 DD5 - 2,8 - 3,2 В\r");
-    //ui->plainTextEdit_Comm->appendPlainText("Проверьте питание переключателя SIM - pin 16/14 DA18 - 1,8 В\r");
 
 }
 
@@ -242,12 +232,10 @@ void MainWindow::on_comboBox_SIM_currentIndexChanged(int index)
     if (index == 1){
         QByteArray cmd (":GSMSIM1\r");
         writeData(cmd);
-        //ui->plainTextEdit_Comm->appendPlainText("Выбрана SIM-карта (SIM2 на плате). Проверьте сигнал SIM_SEL pin 2 DA18 - 0 В \r");
     }
     else if(index == 2) {
         QByteArray cmd (":GSMSIM2\r");
-        writeData(cmd);
-        //ui->plainTextEdit_Comm->appendPlainText("Выбрана SIM-карта или SIM-чип (SIM1 на плате). Проверьте сигнал SIM_SEL pin 2 DA18 - 3,2 В \r");
+        writeData(cmd);        
     }
 
 }
@@ -256,8 +244,7 @@ void MainWindow::on_comboBox_SIM_currentIndexChanged(int index)
 void MainWindow::on_pushButton_clicked()
 {
     QByteArray cmd (":GSM ICCID?\r");
-    writeData(cmd);
-    //ui->plainTextEdit_Comm->appendPlainText("Сверьте полученный ICCID с номером на SIM-карте или SIM-чипе \r");
+    writeData(cmd);    
 }
 
 
@@ -277,12 +264,9 @@ void MainWindow::initActionsConnections(){
 void MainWindow::initWidgets()
 {
 
-
-
     //установка наименвоан виджетов на форму
     qDebug() << "Названия";
     for (int var = 0; var < m_errors_widget_name.size(); ++var) {
-        //qDebug() << m_errors_widget_name.at(var);
         ui->toolBox_Device->setItemText(var,m_errors_widget_name.at(var));
     }
 
@@ -306,8 +290,7 @@ void MainWindow::on_pushButton_2_clicked()
 void MainWindow::on_pushButton_lin_split_clicked()
 {
     QByteArray cmd (":LIN LOOP 1\r");
-    writeData(cmd);
-    //ui->plainTextEdit_Comm->appendPlainText("Передача данных осуществляется по цепи LIN_C -> LIN1_C через внешнее реле. \r");
+    writeData(cmd);   
 }
 
 
@@ -329,8 +312,7 @@ void MainWindow::on_pushButton_lin_split_status_clicked()
 void MainWindow::on_pushButton_lin_split_OFF_exRelay_clicked()
 {
     QByteArray cmd (":OUT CTRL 43-,44+,45+,46+\r");
-    writeData(cmd);
-     //ui->plainTextEdit_Comm->appendPlainText("Проверьте LIN3_C - 0 В \r");
+    writeData(cmd);    
 }
 
 
@@ -365,8 +347,7 @@ void MainWindow::on_pushButton_split_status_clicked()
 void MainWindow::on_pushButton_lin_split_ON_exRelay_clicked()
 {
     QByteArray cmd (":OUT CTRL 43+\r");
-    writeData(cmd);
-    //ui->plainTextEdit_Comm->appendPlainText("Проверьте LIN3_C - 12 В \r");
+    writeData(cmd);    
 }
 
 
@@ -391,16 +372,13 @@ void MainWindow::on_pushButton_can_test_on_clicked()
 {
     QByteArray cmd (":CAN LOOP 1\r");
     writeData(cmd);
-    //ui->plainTextEdit_Comm->appendPlainText("Передача данных осуществляется через внешнее реле и через цепи CAN1_H - CAN2_H и CAN1_L - CAN2_L, соединенных друг с другом через терминальный резистор 120 Ом.\r" "Управление реле осуществляется с помощью LIN4_C.\r");
-
 }
 
 
 void MainWindow::on_pushButton_can_test_off_clicked()
 {
     QByteArray cmd (":CAN LOOP 0\r");
-    writeData(cmd);
-    //ui->plainTextEdit_Comm->appendPlainText("Тест завершен\r");
+    writeData(cmd);    
 }
 
 
@@ -422,17 +400,14 @@ void MainWindow::on_pushButton_can_OFF_exRelay_clicked()
 void MainWindow::on_pushButton_can_ON_exRelay_clicked()
 {
     QByteArray cmd (":OUT CTRL 43+\r");
-    writeData(cmd);
-    //ui->plainTextEdit_Comm->appendPlainText("Команда на замыкание внешнего реле. Проверьте LIN4_C - 12 В\r");
+    writeData(cmd);   
 }
 
 
 void MainWindow::on_pushButton_temp_clicked()
 {
     QByteArray cmd (":ETEMP ?\r");
-    writeData(cmd);
-    //ui->plainTextEdit_Comm->appendPlainText("Если в ответе ERR, то проверьте подключение внешнего датчика температуры.\r");
-    //ui->plainTextEdit_Comm->appendPlainText("Возвращается температура в градусах Цельсия.\r");
+    writeData(cmd);    
 }
 
 

@@ -129,481 +129,36 @@
         <property name="currentIndex">
          <number>0</number>
         </property>
-        <widget class="QWidget" name="page_power">
+        <widget class="QWidget" name="t_mem">
          <property name="geometry">
           <rect>
            <x>0</x>
            <y>0</y>
            <width>360</width>
-           <height>189</height>
+           <height>135</height>
           </rect>
+         </property>
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="whatsThis">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <attribute name="label">
           <string>Страница</string>
          </attribute>
-         <widget class="QPushButton" name="pushButton_2">
-          <property name="geometry">
-           <rect>
-            <x>10</x>
-            <y>10</y>
-            <width>141</width>
-            <height>23</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>Напряжение питания</string>
-          </property>
-         </widget>
         </widget>
-        <widget class="QWidget" name="page_34">
+        <widget class="QWidget" name="t_lin">
          <property name="geometry">
           <rect>
            <x>0</x>
            <y>0</y>
            <width>360</width>
-           <height>189</height>
+           <height>135</height>
           </rect>
          </property>
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <attribute name="label">
-          <string>Page 1</string>
-         </attribute>
-         <widget class="QWidget" name="layoutWidget">
-          <property name="geometry">
-           <rect>
-            <x>1</x>
-            <y>11</y>
-            <width>352</width>
-            <height>120</height>
-           </rect>
-          </property>
-          <layout class="QVBoxLayout" name="verticalLayout_2">
-           <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_3">
-             <item>
-              <widget class="QLabel" name="label_2">
-               <property name="text">
-                <string>Вкл. питание GSM</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="pushButton_GSM_ON">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="text">
-                <string>ON</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLabel" name="label_3">
-               <property name="text">
-                <string>Вкл. питание GPS</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="pushButton_GPS_ON">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="text">
-                <string>ON</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_4">
-             <item>
-              <widget class="QLabel" name="label_5">
-               <property name="text">
-                <string>Вкл. питание MIC</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="pushButton_MIC_PWR">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="text">
-                <string>ON</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLabel" name="label_6">
-               <property name="text">
-                <string>Вкл. делитель</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="pushButton_ON_DIV">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="text">
-                <string>ON</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_8">
-             <item>
-              <widget class="QLabel" name="label_13">
-               <property name="text">
-                <string>Выкл. выход CH02_C </string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="pushButton_CH02_OFF">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="text">
-                <string>Выкл</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_5">
-             <item>
-              <widget class="QLabel" name="label">
-               <property name="text">
-                <string>Тест BUZZER</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="pushButton_BZ_ON">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="text">
-                <string>ON</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="pushButton_BZ_OFF">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="text">
-                <string>OFF</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-          </layout>
-         </widget>
-        </widget>
-        <widget class="QWidget" name="page_e18">
-         <property name="geometry">
-          <rect>
-           <x>0</x>
-           <y>0</y>
-           <width>360</width>
-           <height>189</height>
-          </rect>
-         </property>
-         <attribute name="label">
-          <string>Page 2</string>
-         </attribute>
-         <widget class="QWidget" name="layoutWidget">
-          <property name="geometry">
-           <rect>
-            <x>10</x>
-            <y>3</y>
-            <width>231</width>
-            <height>151</height>
-           </rect>
-          </property>
-          <layout class="QVBoxLayout" name="verticalLayout_3">
-           <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_6">
-             <item>
-              <widget class="QLabel" name="label_8">
-               <property name="text">
-                <string>Вкл. питания GSM</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="pushButton_GSM_ON_2">
-               <property name="text">
-                <string>ON</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_7">
-             <item>
-              <widget class="QLabel" name="label_9">
-               <property name="text">
-                <string>Выберите SIM</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QComboBox" name="comboBox_SIM"/>
-             </item>
-             <item>
-              <widget class="QPushButton" name="pushButton">
-               <property name="text">
-                <string>ICCID ?</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_14">
-             <item>
-              <widget class="QLabel" name="label_29">
-               <property name="text">
-                <string>Подключение к GSM-сети</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="pushButton_gsm_mode">
-               <property name="text">
-                <string>MODE 1</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_16">
-             <item>
-              <widget class="QLabel" name="label_30">
-               <property name="text">
-                <string>Статус GSM подключения</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="pushButton_3">
-               <property name="text">
-                <string>GSM?</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_17">
-             <item>
-              <widget class="QLabel" name="label_31">
-               <property name="text">
-                <string>RESET GSM-модуля</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="pushButton_4">
-               <property name="text">
-                <string>RESET</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-          </layout>
-         </widget>
-        </widget>
-        <widget class="QWidget" name="page_e8">
-         <property name="geometry">
-          <rect>
-           <x>0</x>
-           <y>0</y>
-           <width>360</width>
-           <height>189</height>
-          </rect>
-         </property>
-         <attribute name="label">
-          <string>Страница</string>
-         </attribute>
-         <widget class="QLabel" name="label_20">
-          <property name="geometry">
-           <rect>
-            <x>10</x>
-            <y>0</y>
-            <width>151</width>
-            <height>16</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>Тестирование температуры</string>
-          </property>
-         </widget>
-         <widget class="QPushButton" name="pushButton_temp">
-          <property name="geometry">
-           <rect>
-            <x>170</x>
-            <y>0</y>
-            <width>75</width>
-            <height>23</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>ETEMP ?</string>
-          </property>
-         </widget>
-         <widget class="QLabel" name="label_28">
-          <property name="geometry">
-           <rect>
-            <x>10</x>
-            <y>30</y>
-            <width>47</width>
-            <height>13</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>t_starter</string>
-          </property>
-         </widget>
-         <widget class="QPushButton" name="pushButton_IN">
-          <property name="geometry">
-           <rect>
-            <x>170</x>
-            <y>190</y>
-            <width>75</width>
-            <height>23</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>IN?</string>
-          </property>
-         </widget>
-         <widget class="QCheckBox" name="checkBox_23">
-          <property name="geometry">
-           <rect>
-            <x>10</x>
-            <y>50</y>
-            <width>70</width>
-            <height>17</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>ACC</string>
-          </property>
-         </widget>
-         <widget class="QCheckBox" name="checkBox_24">
-          <property name="geometry">
-           <rect>
-            <x>10</x>
-            <y>60</y>
-            <width>70</width>
-            <height>31</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>IGN1</string>
-          </property>
-         </widget>
-         <widget class="QCheckBox" name="checkBox_25">
-          <property name="geometry">
-           <rect>
-            <x>10</x>
-            <y>90</y>
-            <width>70</width>
-            <height>17</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>IGN2</string>
-          </property>
-         </widget>
-         <widget class="QCheckBox" name="checkBox_31">
-          <property name="geometry">
-           <rect>
-            <x>10</x>
-            <y>110</y>
-            <width>70</width>
-            <height>17</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>START</string>
-          </property>
-         </widget>
-         <widget class="QCheckBox" name="checkBox_32">
-          <property name="geometry">
-           <rect>
-            <x>10</x>
-            <y>130</y>
-            <width>81</width>
-            <height>17</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>START_KILL</string>
-          </property>
-         </widget>
-         <widget class="QPushButton" name="pushButton_ON">
-          <property name="geometry">
-           <rect>
-            <x>10</x>
-            <y>160</y>
-            <width>75</width>
-            <height>23</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>Вкл</string>
-          </property>
-         </widget>
-        </widget>
-        <widget class="QWidget" name="page_e37">
-         <property name="geometry">
-          <rect>
-           <x>0</x>
-           <y>0</y>
-           <width>360</width>
-           <height>189</height>
-          </rect>
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <attribute name="label">
           <string>Страница</string>
@@ -813,13 +368,13 @@
           </layout>
          </widget>
         </widget>
-        <widget class="QWidget" name="page_e4">
+        <widget class="QWidget" name="t_can">
          <property name="geometry">
           <rect>
            <x>0</x>
            <y>0</y>
            <width>360</width>
-           <height>189</height>
+           <height>135</height>
           </rect>
          </property>
          <attribute name="label">
@@ -928,37 +483,327 @@
           </property>
          </widget>
         </widget>
-        <widget class="QWidget" name="page_e2">
+        <widget class="QWidget" name="t_pwr">
          <property name="geometry">
           <rect>
            <x>0</x>
            <y>0</y>
            <width>360</width>
-           <height>189</height>
+           <height>135</height>
+          </rect>
+         </property>
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <attribute name="label">
+          <string>Страница</string>
+         </attribute>
+         <widget class="QPushButton" name="pushButton_2">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>10</y>
+            <width>141</width>
+            <height>23</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Напряжение питания</string>
+          </property>
+         </widget>
+        </widget>
+        <widget class="QWidget" name="t_io_temp">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>360</width>
+           <height>135</height>
+          </rect>
+         </property>
+         <attribute name="label">
+          <string>Страница</string>
+         </attribute>
+         <widget class="QLabel" name="label_20">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>0</y>
+            <width>151</width>
+            <height>16</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Тестирование температуры</string>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="pushButton_temp">
+          <property name="geometry">
+           <rect>
+            <x>170</x>
+            <y>0</y>
+            <width>75</width>
+            <height>23</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>ETEMP ?</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_28">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>30</y>
+            <width>47</width>
+            <height>13</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>t_starter</string>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="pushButton_IN">
+          <property name="geometry">
+           <rect>
+            <x>170</x>
+            <y>190</y>
+            <width>75</width>
+            <height>23</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>IN?</string>
+          </property>
+         </widget>
+         <widget class="QCheckBox" name="checkBox_23">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>50</y>
+            <width>70</width>
+            <height>17</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>ACC</string>
+          </property>
+         </widget>
+         <widget class="QCheckBox" name="checkBox_24">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>60</y>
+            <width>70</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>IGN1</string>
+          </property>
+         </widget>
+         <widget class="QCheckBox" name="checkBox_25">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>90</y>
+            <width>70</width>
+            <height>17</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>IGN2</string>
+          </property>
+         </widget>
+         <widget class="QCheckBox" name="checkBox_31">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>110</y>
+            <width>70</width>
+            <height>17</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>START</string>
+          </property>
+         </widget>
+         <widget class="QCheckBox" name="checkBox_32">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>130</y>
+            <width>81</width>
+            <height>17</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>START_KILL</string>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="pushButton_ON">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>160</y>
+            <width>75</width>
+            <height>23</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Вкл</string>
+          </property>
+         </widget>
+        </widget>
+        <widget class="QWidget" name="t_gsm">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>360</width>
+           <height>135</height>
+          </rect>
+         </property>
+         <attribute name="label">
+          <string>Page 2</string>
+         </attribute>
+         <widget class="QWidget" name="layoutWidget">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>3</y>
+            <width>231</width>
+            <height>151</height>
+           </rect>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_3">
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_6">
+             <item>
+              <widget class="QLabel" name="label_8">
+               <property name="text">
+                <string>Вкл. питания GSM</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="pushButton_GSM_ON_2">
+               <property name="text">
+                <string>ON</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_7">
+             <item>
+              <widget class="QLabel" name="label_9">
+               <property name="text">
+                <string>Выберите SIM</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QComboBox" name="comboBox_SIM"/>
+             </item>
+             <item>
+              <widget class="QPushButton" name="pushButton">
+               <property name="text">
+                <string>ICCID ?</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_14">
+             <item>
+              <widget class="QLabel" name="label_29">
+               <property name="text">
+                <string>Подключение к GSM-сети</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="pushButton_gsm_mode">
+               <property name="text">
+                <string>MODE 1</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_16">
+             <item>
+              <widget class="QLabel" name="label_30">
+               <property name="text">
+                <string>Статус GSM подключения</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="pushButton_3">
+               <property name="text">
+                <string>GSM?</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_17">
+             <item>
+              <widget class="QLabel" name="label_31">
+               <property name="text">
+                <string>RESET GSM-модуля</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="pushButton_4">
+               <property name="text">
+                <string>RESET</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </widget>
+        </widget>
+        <widget class="QWidget" name="t_gps">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>360</width>
+           <height>135</height>
           </rect>
          </property>
          <attribute name="label">
           <string>Страница</string>
          </attribute>
         </widget>
-        <widget class="QWidget" name="page_e19">
+        <widget class="QWidget" name="t_acc">
+         <attribute name="label">
+          <string>Страница</string>
+         </attribute>
+        </widget>
+        <widget class="QWidget" name="t_ble">
          <property name="geometry">
           <rect>
            <x>0</x>
            <y>0</y>
            <width>360</width>
-           <height>189</height>
+           <height>135</height>
           </rect>
          </property>
          <attribute name="label">
           <string>Страница</string>
          </attribute>
-        </widget>
-        <widget class="QWidget" name="page_e32">
-         <attribute name="label">
-          <string>Страница</string>
-         </attribute>
-         <widget class="QWidget" name="">
+         <widget class="QWidget" name="layoutWidget">
           <property name="geometry">
            <rect>
             <x>0</x>
@@ -1021,6 +866,191 @@
            </item>
           </layout>
          </widget>
+        </widget>
+        <widget class="QWidget" name="t_ai_mic">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>360</width>
+           <height>135</height>
+          </rect>
+         </property>
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <attribute name="label">
+          <string>Page 1</string>
+         </attribute>
+         <widget class="QWidget" name="layoutWidget">
+          <property name="geometry">
+           <rect>
+            <x>1</x>
+            <y>11</y>
+            <width>352</width>
+            <height>120</height>
+           </rect>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_2">
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_3">
+             <item>
+              <widget class="QLabel" name="label_2">
+               <property name="text">
+                <string>Вкл. питание GSM</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="pushButton_GSM_ON">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="text">
+                <string>ON</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="label_3">
+               <property name="text">
+                <string>Вкл. питание GPS</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="pushButton_GPS_ON">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="text">
+                <string>ON</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_4">
+             <item>
+              <widget class="QLabel" name="label_5">
+               <property name="text">
+                <string>Вкл. питание MIC</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="pushButton_MIC_PWR">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="text">
+                <string>ON</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="label_6">
+               <property name="text">
+                <string>Вкл. делитель</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="pushButton_ON_DIV">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="text">
+                <string>ON</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_8">
+             <item>
+              <widget class="QLabel" name="label_13">
+               <property name="text">
+                <string>Выкл. выход CH02_C </string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="pushButton_CH02_OFF">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="text">
+                <string>Выкл</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_5">
+             <item>
+              <widget class="QLabel" name="label">
+               <property name="text">
+                <string>Тест BUZZER</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="pushButton_BZ_ON">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="text">
+                <string>ON</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="pushButton_BZ_OFF">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="text">
+                <string>OFF</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </widget>
+        </widget>
+        <widget class="QWidget" name="t_trx">
+         <attribute name="label">
+          <string>Страница</string>
+         </attribute>
         </widget>
        </widget>
       </item>
@@ -1091,6 +1121,9 @@
      <width>1086</width>
      <height>21</height>
     </rect>
+   </property>
+   <property name="defaultUp">
+    <bool>false</bool>
    </property>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>

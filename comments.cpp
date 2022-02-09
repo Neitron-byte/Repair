@@ -82,22 +82,11 @@ void comments::setCurrentTable(const QString & table)
             createTables(table);
             m_listTable << table;
             qDebug() << "Создание таблицы" << table;
-        }
-        //qDebug() << arg;
+        }        
         m_currentTable = table;
         m_model->setTable(table);
         m_model->select();
-        //model.setEditStrategy(QSqlTableModel::OnManualSubmit);
 
-        //qDebug() << m_model->rowCount();
-
-    //    for (int nRow = 0; nRow <  m_model->rowCount(); ++nRow) {
-    //    QSqlRecord rec =  m_model->record(nRow);
-    //    int nNumber = rec.value("id").toInt();
-    //    qDebug() << nNumber;
-    //    QString strName = rec.value ( "comments").toString();
-    //    qDebug() << strName;
-    //    }
 
         ui->listView_comm->setModel(m_model);
         ui->listView_comm->setModelColumn(1);
@@ -115,7 +104,6 @@ void comments::on_pushButton_add_comm_clicked()
     qDebug() << ui->plainTextEdit_comments->toPlainText();
     qDebug() <<"m_current" << m_currentTable;
     query.exec(QString("INSERT INTO %1 (description) VALUES ('%2')").arg(m_currentTable).arg(ui->plainTextEdit_comments->toPlainText()));
-    //query.exec(QString("INSERT INTO %1 (description) VALUES ('ETEST comment');").arg(table));
     ui->plainTextEdit_comments->clear();
     m_model->select();
 }
