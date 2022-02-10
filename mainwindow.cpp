@@ -41,9 +41,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->statusbar->addWidget(m_status);
 
-    //Модели - в разработке
-    QStringList Model;
-    Model << "ES96"<<"A96"<<"A97";
+    //Модели - в разработке     
     ui->comboBox_dev->addItems(Model);
 
 
@@ -52,6 +50,7 @@ MainWindow::MainWindow(QWidget *parent)
     this->setWindowTitle(tr("Diagnostic Software Starline"));
 
     ui->toolBox_Device->setEnabled(false);
+    ui->comboBox_dev->setEnabled(false);
 
     initActionsConnections();
     initWidgets();
@@ -59,14 +58,10 @@ MainWindow::MainWindow(QWidget *parent)
     //комментарии и Db
     ui->verticalLayout_4->addWidget(m_comments);
 
-    //лист виджетов
+    //добавление свойств к виджетам.
+    this->setProperty();
 
-    ui->checkBox_23->setProperty("id",23);
-    ui->checkBox_24->setProperty("id",24);
-    ui->checkBox_25->setProperty("id",25);
-    ui->checkBox_31->setProperty("id",31);
-    ui->checkBox_32->setProperty("id",32);
-
+    //добавление Checkbox-ов в вектор для проверки
     m_vector_check_starter.push_back(ui->checkBox_23);
     m_vector_check_starter.push_back(ui->checkBox_24);
     m_vector_check_starter.push_back(ui->checkBox_25);
@@ -99,9 +94,9 @@ void MainWindow::openPort()
                           .arg(m_serial->parity()).arg(m_serial->stopBits()).arg(m_serial->flowControl()));
 
        m_console->putData("СOM порт открыт!\r");       
-       ui->toolBox_Device->setEnabled(true);
-       int ind = ui->toolBox_Device->currentIndex();
-       m_comments->setCurrentTable(m_errors_widget_name.at(ind));
+       //ui->toolBox_Device->setEnabled(true);
+       ui->comboBox_dev->setEnabled(true);
+
 
     } else {
         qDebug() << tr ("Port not open");
@@ -210,7 +205,14 @@ void MainWindow::closeSerialPort()
 
 void MainWindow::on_toolBox_Device_currentChanged(int index)
 {
-    m_comments->setCurrentTable(m_errors_widget_name.at(index));
+
+    //m_comments->setCurrentTable(m_errors_widget_name.at(index));
+    if (ui->comboBox_dev->currentIndex() == 1){
+        m_comments->setCurrentTable(QString("%1%2").arg(ui->comboBox_dev->currentText()).arg(m_test_errorES96[index].first));
+    }
+    if (ui->comboBox_dev->currentIndex() == 2){
+        m_comments->setCurrentTable(QString("%1%2").arg(ui->comboBox_dev->currentText()).arg(m_test_errorA97[index].first));
+    }
 
 
 }
@@ -258,18 +260,14 @@ void MainWindow::initActionsConnections(){
      connect(ui->action_Connect_2, &QAction::triggered, this, &MainWindow::on_pushButton_Open_COM_clicked);
      connect(ui->action_Disconnect_2, &QAction::triggered, this, &MainWindow::closeSerialPort);
      connect(ui->action_Clear_2,&QAction::triggered,this, &MainWindow::clear);
-      connect(ui->action_About,&QAction::triggered,this, &MainWindow::abouts);
+     connect(ui->action_About,&QAction::triggered,this, &MainWindow::abouts);
+     connect(this,SIGNAL(initSetTable(int)),this,SLOT(on_toolBox_Device_currentChanged(int)));
 }
 
 void MainWindow::initWidgets()
 {
 
     //установка наименвоан виджетов на форму
-    qDebug() << "Названия";
-    for (int var = 0; var < m_errors_widget_name.size(); ++var) {
-        ui->toolBox_Device->setItemText(var,m_errors_widget_name.at(var));
-    }
-
     ui->comboBox_SIM->addItem(" ");
     ui->comboBox_SIM->addItem("1");
     ui->comboBox_SIM->addItem("2");
@@ -277,6 +275,19 @@ void MainWindow::initWidgets()
 
 void MainWindow::addTables()
 {
+
+}
+
+void MainWindow::setProperty()
+{
+    //для Com
+
+    //для t_starter
+    ui->checkBox_23->setProperty("id",23);
+    ui->checkBox_24->setProperty("id",24);
+    ui->checkBox_25->setProperty("id",25);
+    ui->checkBox_31->setProperty("id",31);
+    ui->checkBox_32->setProperty("id",32);
 
 }
 
@@ -392,8 +403,7 @@ void MainWindow::on_pushButton_can_status_clicked()
 void MainWindow::on_pushButton_can_OFF_exRelay_clicked()
 {
     QByteArray cmd (":OUT CTRL 43-,44+,45+,46+\r");
-    writeData(cmd);
-    //ui->plainTextEdit_Comm->appendPlainText("\r");
+    writeData(cmd);  
 }
 
 
@@ -474,6 +484,66 @@ void MainWindow::on_pushButton_stop_clicked()
 void MainWindow::on_pushButton_status_clicked()
 {
     QByteArray cmd (":BLE ?\r");
+    writeData(cmd);
+}
+
+
+void MainWindow::on_comboBox_dev_currentIndexChanged(int index)
+{
+    switch (index) {
+    case 1:
+
+        for (int var = 0; var < m_test_errorES96.size(); ++var) {
+            ui->toolBox_Device->setItemText(var, QString("Тест: %1   Ошибки: %2").arg(m_test_errorES96[var].first).arg(m_test_errorES96[var].second));
+
+
+        }
+        break;
+
+
+
+    case 2:
+
+        for (int var = 0; var < m_test_errorA97.size(); ++var) {
+            ui->toolBox_Device->setItemText(var, QString("Тест: %1   Ошибки: %2").arg(m_test_errorA97[var].first).arg(m_test_errorA97[var].second));
+
+        }
+        break;
+
+    default:
+        break;
+    }
+
+    emit initSetTable(ui->toolBox_Device->currentIndex());
+    ui->toolBox_Device->setEnabled(true);
+}
+
+
+void MainWindow::on_pushButton_t_mem_ON_clicked()
+{
+    QByteArray cmd (":MEM LOOP 1\r");
+    writeData(cmd);
+
+}
+
+
+void MainWindow::on_pushButton_t_mem_OFF_clicked()
+{
+    QByteArray cmd (":MEM LOOP 0\r");
+    writeData(cmd);
+}
+
+
+void MainWindow::on_pushButton_t_mem_stat_clicked()
+{
+    QByteArray cmd (":MEM ?\r");
+    writeData(cmd);
+}
+
+
+void MainWindow::on_pushButton_t_mem_id_clicked()
+{
+    QByteArray cmd (":JEDEC_FLASH ?\r");
     writeData(cmd);
 }
 

@@ -26,6 +26,8 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+
+
 private slots:
 
     void on_pushButton_BZ_ON_clicked();
@@ -115,6 +117,21 @@ private slots:
 
     void on_pushButton_status_clicked();
 
+    void on_comboBox_dev_currentIndexChanged(int index);
+
+    void on_pushButton_t_mem_ON_clicked();
+
+    void on_pushButton_t_mem_OFF_clicked();
+
+    void on_pushButton_t_mem_stat_clicked();
+
+    void on_pushButton_t_mem_id_clicked();
+
+signals:
+
+    void initSetTable (int );
+
+
 private:
 
     void showStatusMessage(const QString &message);
@@ -124,6 +141,8 @@ private:
     void initWidgets();
 
     void addTables();
+
+    void setProperty();
 
     Ui::MainWindow *ui;
     //консоль
@@ -141,9 +160,41 @@ private:
     //Комментарии
     comments* m_comments = nullptr;
     //Список виджетов ошибок
-    QStringList m_errors_widget_name {"E6", "E34", "E18_35", "E8", "E3_37", "E4", "E2", "E19", "E32"};
+    //QStringList m_errors_widget_name {"t_mem", "t_lin", "t_can", "t_pwr", "t_io_temp", "t_gsm", "t_gps", "t_acc", "t_ble", "t_ai_mic", "t_trx"};
     //для стартера
     QVector<QCheckBox*> m_vector_check_starter;
+    //наименование изделий
+    QStringList Model {" ", "ES96", "A97"};
+
+    QVector<QPair<QString,QString>> m_test_errorES96 {
+        {"t_mem","E1,E2,E15"},
+        {"t_lin","E1,E3,E5,E36,E37,E38,E39,E31"},
+        {"t_can","E1,E4,E5"},
+        {"t_pwr","E6"},
+        {"t_io_temp","E8,E17"},
+        {"t_gsm","E18,E30,E35"},
+        {"t_gps","E19"},
+        {"t_acc","E20"},
+        {"t_ble","E22,E32"},
+        {"t_ai_mic","E34"},
+        {"t_trx"," "}
+
+    };
+
+    QVector<QPair<QString,QString>> m_test_errorA97 {
+        {"t_mem","E3,E5,E24"},
+        {"t_lin","E3,E6,E7,E13,E17"},
+        {"t_can","E3,E8,E9,E12"},
+        {"t_pwr","E4"},
+        {"t_io_temp","E2,E14,E15,E16,E18,E19,E20,E21,E22,E23,E26"},
+        {"t_gsm","E25"},
+        {"t_gps"," "},
+        {"t_acc","E1"},
+        {"t_ble","E27,E28,E29"},
+        {"t_ai_mic"," "},
+        {"t_trx","E10,E11"}
+
+    };
 
 };
 #endif // MAINWINDOW_H
