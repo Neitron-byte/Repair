@@ -9,6 +9,7 @@
 #include <QStringList>
 #include <QComboBox>
 #include <QIcon>
+#include <QString>
 
 
 MainWindow::MainWindow(QWidget *parent)
@@ -38,23 +39,22 @@ MainWindow::MainWindow(QWidget *parent)
 
     //добавление в UI портов
     ui->comboBox->addItems(m_listCom);
-
+    //в статус бар
     ui->statusbar->addWidget(m_status);
-
-    //Модели - в разработке     
-    ui->comboBox_dev->addItems(Model);
-
-
+    //добавление консоли на компоновщик
     ui->verticalLayout->addWidget(m_console);
-
+    //Название
     this->setWindowTitle(tr("Diagnostic Software Starline"));
-
+    //lock ToolBox
     ui->toolBox_Device->setEnabled(false);
-    ui->comboBox_dev->setEnabled(false);
 
+    //иниты
+    //signal-slot ы
     initActionsConnections();
+    //добавление информации на виджеты
     initWidgets();
-
+    //первоначальная инициализация ToolBox и Db
+    initToolBox_db();
     //комментарии и Db
     ui->verticalLayout_4->addWidget(m_comments);
 
@@ -93,10 +93,8 @@ void MainWindow::openPort()
                           .arg(m_serial->portName()).arg(m_serial->baudRate()).arg(m_serial->dataBits())
                           .arg(m_serial->parity()).arg(m_serial->stopBits()).arg(m_serial->flowControl()));
 
-       m_console->putData("СOM порт открыт!\r");       
-       //ui->toolBox_Device->setEnabled(true);
-       ui->comboBox_dev->setEnabled(true);
-
+       m_console->putData("СOM порт открыт!\r");             
+       ui->toolBox_Device->setEnabled(true);
 
     } else {
         qDebug() << tr ("Port not open");
@@ -205,15 +203,7 @@ void MainWindow::closeSerialPort()
 
 void MainWindow::on_toolBox_Device_currentChanged(int index)
 {
-
-    //m_comments->setCurrentTable(m_errors_widget_name.at(index));
-    if (ui->comboBox_dev->currentIndex() == 1){
-        m_comments->setCurrentTable(QString("%1%2").arg(ui->comboBox_dev->currentText()).arg(m_test_errorES96[index].first));
-    }
-    if (ui->comboBox_dev->currentIndex() == 2){
-        m_comments->setCurrentTable(QString("%1%2").arg(ui->comboBox_dev->currentText()).arg(m_test_errorA97[index].first));
-    }
-
+    m_comments->setCurrentTable(m_test_db_error[index].second.first);
 
 }
 
@@ -260,8 +250,7 @@ void MainWindow::initActionsConnections(){
      connect(ui->action_Connect_2, &QAction::triggered, this, &MainWindow::on_pushButton_Open_COM_clicked);
      connect(ui->action_Disconnect_2, &QAction::triggered, this, &MainWindow::closeSerialPort);
      connect(ui->action_Clear_2,&QAction::triggered,this, &MainWindow::clear);
-     connect(ui->action_About,&QAction::triggered,this, &MainWindow::abouts);
-     connect(this,SIGNAL(initSetTable(int)),this,SLOT(on_toolBox_Device_currentChanged(int)));
+     connect(ui->action_About,&QAction::triggered,this, &MainWindow::abouts);     
 }
 
 void MainWindow::initWidgets()
@@ -273,10 +262,6 @@ void MainWindow::initWidgets()
     ui->comboBox_SIM->addItem("2");
 }
 
-void MainWindow::addTables()
-{
-
-}
 
 void MainWindow::setProperty()
 {
@@ -289,6 +274,19 @@ void MainWindow::setProperty()
     ui->checkBox_31->setProperty("id",31);
     ui->checkBox_32->setProperty("id",32);
 
+}
+
+void MainWindow::initToolBox_db()
+{
+    for (int var = 0; var < m_test_db_error.size(); ++var) {
+        ui->toolBox_Device->setItemText(var, QString("%1 Ошибки: %2") .arg(m_test_db_error[var].first)
+                                        .arg(m_test_db_error[var].second.second));
+    }
+
+    int index = ui->toolBox_Device->currentIndex();
+    m_comments->setCurrentTable(m_test_db_error[index].second.first);
+
+    ui->toolBox_Device->setCurrentIndex(0);
 }
 
 void MainWindow::on_pushButton_2_clicked()
@@ -488,37 +486,6 @@ void MainWindow::on_pushButton_status_clicked()
 }
 
 
-void MainWindow::on_comboBox_dev_currentIndexChanged(int index)
-{
-    switch (index) {
-    case 1:
-
-        for (int var = 0; var < m_test_errorES96.size(); ++var) {
-            ui->toolBox_Device->setItemText(var, QString("Тест: %1   Ошибки: %2").arg(m_test_errorES96[var].first).arg(m_test_errorES96[var].second));
-
-
-        }
-        break;
-
-
-
-    case 2:
-
-        for (int var = 0; var < m_test_errorA97.size(); ++var) {
-            ui->toolBox_Device->setItemText(var, QString("Тест: %1   Ошибки: %2").arg(m_test_errorA97[var].first).arg(m_test_errorA97[var].second));
-
-        }
-        break;
-
-    default:
-        break;
-    }
-
-    emit initSetTable(ui->toolBox_Device->currentIndex());
-    ui->toolBox_Device->setEnabled(true);
-}
-
-
 void MainWindow::on_pushButton_t_mem_ON_clicked()
 {
     QByteArray cmd (":MEM LOOP 1\r");
@@ -544,6 +511,13 @@ void MainWindow::on_pushButton_t_mem_stat_clicked()
 void MainWindow::on_pushButton_t_mem_id_clicked()
 {
     QByteArray cmd (":JEDEC_FLASH ?\r");
+    writeData(cmd);
+}
+
+
+void MainWindow::on_pushButton_sn_clicked()
+{
+    QByteArray cmd (":SN?\r");
     writeData(cmd);
 }
 
