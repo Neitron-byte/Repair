@@ -16,9 +16,9 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
     , m_console(new Console)
-     , m_serial(new QSerialPort(this))
+    , m_serial(new QSerialPort(this))
     , m_status(new QLabel)
-    ,m_comments(new comments)
+    , m_comments(new comments)
 
 {
 
@@ -75,8 +75,19 @@ MainWindow::~MainWindow()
     if(m_serial->isOpen()){
         m_serial->close();
     }
-    delete m_serial;
-    delete m_status;
+    if (m_serial){
+        delete m_serial;
+    }
+    if(m_status){
+        delete m_status;
+    }
+    if (m_console){
+        delete m_console;
+    }
+    if (model){
+        delete model;
+    }
+
 
 }
 
@@ -273,6 +284,7 @@ void MainWindow::setProperty()
     ui->checkBox_25->setProperty("id",25);
     ui->checkBox_31->setProperty("id",31);
     ui->checkBox_32->setProperty("id",32);
+
 
 }
 
@@ -519,5 +531,63 @@ void MainWindow::on_pushButton_sn_clicked()
 {
     QByteArray cmd (":SN?\r");
     writeData(cmd);
+}
+
+
+void MainWindow::on_pushButton_erase_eeprom_clicked()
+{
+    QByteArray cmd (":MEM ERASE 1\r");
+    writeData(cmd);
+}
+
+
+void MainWindow::on_pushButton_erase_flash_clicked()
+{
+    QByteArray cmd (":MEM ERASE 2\r");
+    writeData(cmd);
+}
+
+
+void MainWindow::on_pushButton_lin_start_clicked()
+{
+    if (ui->radioButton_lin_lin1->isChecked() ) {
+        QByteArray cmd (":LIN LOOP 1\r");
+        writeData(cmd);
+    }
+    if (ui->radioButton_lin1_lin2->isChecked() ) {
+        QByteArray cmd (":LIN SPLIT 1\r");
+        writeData(cmd);
+    }
+    if (ui->radioButton_lin3_lin4->isChecked() ) {
+        QByteArray cmd (":LIN SPLIT 2\r");
+        writeData(cmd);
+    }
+}
+
+
+void MainWindow::on_pushButton_lin_stop_clicked()
+{
+    if (ui->radioButton_lin_lin1->isChecked() ) {
+        QByteArray cmd (":LIN LOOP 0\r");
+        writeData(cmd);
+    }
+    if (ui->radioButton_lin1_lin2->isChecked() || ui->radioButton_lin3_lin4->isChecked() ) {
+        QByteArray cmd (":LIN SPLIT 0\r");
+        writeData(cmd);
+    }
+
+}
+
+
+void MainWindow::on_pushButton_lin_status_clicked()
+{
+    if (ui->radioButton_lin_lin1->isChecked() ) {
+        QByteArray cmd (":LIN ?\r");
+        writeData(cmd);
+    }
+    if (ui->radioButton_lin1_lin2->isChecked() || ui->radioButton_lin3_lin4->isChecked() ) {
+        QByteArray cmd (":LIN SPLIT ?\r");
+        writeData(cmd);
+    }
 }
 

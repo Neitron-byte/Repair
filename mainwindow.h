@@ -133,6 +133,16 @@ private slots:
 
     void on_pushButton_sn_clicked();
 
+    void on_pushButton_erase_eeprom_clicked();
+
+    void on_pushButton_erase_flash_clicked();
+
+    void on_pushButton_lin_start_clicked();
+
+    void on_pushButton_lin_stop_clicked();
+
+    void on_pushButton_lin_status_clicked();
+
 private:
 
     void showStatusMessage(const QString &message);
@@ -169,17 +179,18 @@ private:
 
 
     QVector<QPair<QString,QPair<QString,QString>>> m_test_db_error {
-        {"Проверка SN",{"t_sn","E0"}},
-        {"Проверка памяти", {"t_mem","E1,E2,E15"}},
-        {"Проверка LIN",{"t_lin","E1,E3,E5,E36,E37,E38,E39,E31"}},
-        {"Проверка CAN",{"t_can","E1,E4,E5"}},
-        {"Проверка питания", {"t_pwr","E6"}},
-        {"Проверка входов/выходов",{"t_io_temp","E8,E17"}},
-        {"Проверка GSM",{"t_gsm","E18,E30,E35"}},
-        {"Проверка GPS",{"t_gps","E19"}},
-        {"Проверка ACC",{"t_acc","E20"}},
-        {"Проверка BLE",{"t_ble","E22,E32"}},
-        {"Проверка ANIN",{"t_ai_mic","E34"}}
+        {"Проверка SN. ",{"t_sn","E0"}},
+        {"Тестирование памяти. ", {"t_mem","E1,E2,E15"}},
+        {"Тестирование LIN. ",{"t_lin","E1,E3,E5,E36,E37,E38,E39,E31"}},
+        {"Тестирование CAN. ",{"t_can","E1,E4,E5"}},
+        {"Проверка питания. ", {"t_pwr","E6"}},
+        {"Проверка GSM. ",{"t_gsm","E18,E30,E35"}},
+        {"Проверка GPS. ",{"t_gps","E19"}},
+        {"Проверка ACC. ",{"t_acc","E20"}},
+        {"Проверка BLE. ",{"t_ble","E22,E32"}},
+        {"Проверка MIC. ",{"t_ai_mic","E34"}},
+        {"Проверка температуры. ",{"t_temp","E17"}},
+        {"Проверка входов/выходов. ",{"t_io_temp","E8,E17"}},
     };   
 
 };
