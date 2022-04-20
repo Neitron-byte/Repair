@@ -367,7 +367,7 @@ void MainWindow::on_pushButton_split_status_clicked()
 
 void MainWindow::on_pushButton_lin_split_ON_exRelay_clicked()
 {
-    QByteArray cmd (":OUT CTRL 43+\r");
+    QByteArray cmd (":OUT CTRL 43+,44+,45-,46+\r");
     writeData(cmd);    
 }
 
@@ -419,7 +419,7 @@ void MainWindow::on_pushButton_can_OFF_exRelay_clicked()
 
 void MainWindow::on_pushButton_can_ON_exRelay_clicked()
 {
-    QByteArray cmd (":OUT CTRL 43+\r");
+    QByteArray cmd (":OUT CTRL 43+,44+,45-,46+\r");
     writeData(cmd);   
 }
 
@@ -589,5 +589,19 @@ void MainWindow::on_pushButton_lin_status_clicked()
         QByteArray cmd (":LIN SPLIT ?\r");
         writeData(cmd);
     }
+}
+
+
+void MainWindow::on_pushButton_lin_split2_on_relay_clicked()
+{
+    QByteArray cmd (":OUT CTRL 42-\r");
+    writeData(cmd);
+}
+
+
+void MainWindow::on_pushButton_lin_split2_off_relay_clicked()
+{
+    QByteArray cmd (":OUT CTRL 42+\r");
+    writeData(cmd);
 }
 

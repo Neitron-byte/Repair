@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1127</width>
-    <height>809</height>
+    <width>831</width>
+    <height>639</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -145,7 +145,7 @@
       <item>
        <widget class="QToolBox" name="toolBox_Device">
         <property name="sizePolicy">
-         <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
@@ -153,7 +153,7 @@
         <property name="minimumSize">
          <size>
           <width>400</width>
-          <height>400</height>
+          <height>300</height>
          </size>
         </property>
         <property name="maximumSize">
@@ -176,7 +176,7 @@
            <x>0</x>
            <y>0</y>
            <width>400</width>
-           <height>322</height>
+           <height>152</height>
           </rect>
          </property>
          <attribute name="label">
@@ -215,7 +215,7 @@
            <x>0</x>
            <y>0</y>
            <width>400</width>
-           <height>322</height>
+           <height>152</height>
           </rect>
          </property>
          <property name="toolTip">
@@ -227,7 +227,7 @@
          <attribute name="label">
           <string>Страница</string>
          </attribute>
-         <widget class="QWidget" name="">
+         <widget class="QWidget" name="layoutWidget">
           <property name="geometry">
            <rect>
             <x>10</x>
@@ -395,13 +395,13 @@
            <x>0</x>
            <y>0</y>
            <width>400</width>
-           <height>300</height>
+           <height>152</height>
           </rect>
          </property>
          <property name="minimumSize">
           <size>
            <width>0</width>
-           <height>300</height>
+           <height>0</height>
           </size>
          </property>
          <property name="maximumSize">
@@ -416,153 +416,23 @@
          <attribute name="label">
           <string>Страница</string>
          </attribute>
-         <widget class="QLabel" name="label_34">
+         <widget class="QLabel" name="label_23">
           <property name="geometry">
            <rect>
-            <x>140</x>
-            <y>80</y>
-            <width>81</width>
-            <height>16</height>
+            <x>160</x>
+            <y>0</y>
+            <width>201</width>
+            <height>20</height>
            </rect>
           </property>
           <property name="text">
-           <string>Оптрон DA22</string>
-          </property>
-         </widget>
-         <widget class="QLabel" name="label_15">
-          <property name="geometry">
-           <rect>
-            <x>20</x>
-            <y>100</y>
-            <width>121</width>
-            <height>16</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>Управление тестом</string>
-          </property>
-         </widget>
-         <widget class="QPushButton" name="pushButton_lin_split2_on_relay">
-          <property name="geometry">
-           <rect>
-            <x>220</x>
-            <y>80</y>
-            <width>75</width>
-            <height>24</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>ВКЛ</string>
-          </property>
-         </widget>
-         <widget class="QPushButton" name="pushButton_lin_split2_off_relay">
-          <property name="geometry">
-           <rect>
-            <x>310</x>
-            <y>80</y>
-            <width>75</width>
-            <height>24</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>ВЫКЛ</string>
-          </property>
-         </widget>
-         <widget class="QRadioButton" name="radioButton_lin_lin1">
-          <property name="geometry">
-           <rect>
-            <x>20</x>
-            <y>20</y>
-            <width>82</width>
-            <height>17</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string> LIN - LIN1</string>
-          </property>
-         </widget>
-         <widget class="QRadioButton" name="radioButton_lin1_lin2">
-          <property name="geometry">
-           <rect>
-            <x>20</x>
-            <y>50</y>
-            <width>82</width>
-            <height>17</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>LIN1 - LIN2</string>
-          </property>
-         </widget>
-         <widget class="QRadioButton" name="radioButton_lin3_lin4">
-          <property name="geometry">
-           <rect>
-            <x>20</x>
-            <y>80</y>
-            <width>101</width>
-            <height>17</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string> LIN3 - LIN4</string>
-          </property>
-         </widget>
-         <widget class="QPushButton" name="pushButton_lin_status">
-          <property name="geometry">
-           <rect>
-            <x>110</x>
-            <y>160</y>
-            <width>75</width>
-            <height>24</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>Статус</string>
-          </property>
-         </widget>
-         <widget class="QPushButton" name="pushButton_lin_split_off_relay">
-          <property name="geometry">
-           <rect>
-            <x>220</x>
-            <y>50</y>
-            <width>75</width>
-            <height>24</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>ВЫКЛ</string>
-          </property>
-         </widget>
-         <widget class="QLabel" name="label_24">
-          <property name="geometry">
-           <rect>
-            <x>140</x>
-            <y>50</y>
-            <width>70</width>
-            <height>16</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>Оптрон DA8</string>
-          </property>
-         </widget>
-         <widget class="QPushButton" name="pushButton_lin_split_on_relay">
-          <property name="geometry">
-           <rect>
-            <x>310</x>
-            <y>50</y>
-            <width>75</width>
-            <height>24</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>ВКЛ</string>
+           <string>Управление обрывом цепи</string>
           </property>
          </widget>
          <widget class="QLabel" name="label_14">
           <property name="geometry">
            <rect>
-            <x>20</x>
+            <x>40</x>
             <y>0</y>
             <width>27</width>
             <height>16</height>
@@ -572,70 +442,189 @@
            <string>Тест</string>
           </property>
          </widget>
-         <widget class="QPushButton" name="pushButton_lin_stop">
+         <widget class="QWidget" name="">
           <property name="geometry">
            <rect>
-            <x>110</x>
-            <y>120</y>
-            <width>75</width>
-            <height>24</height>
+            <x>12</x>
+            <y>23</y>
+            <width>356</width>
+            <height>150</height>
            </rect>
           </property>
-          <property name="text">
-           <string>СТОП</string>
-          </property>
-         </widget>
-         <widget class="QPushButton" name="pushButton_lin_start">
-          <property name="geometry">
-           <rect>
-            <x>20</x>
-            <y>120</y>
-            <width>75</width>
-            <height>24</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>СТАРТ</string>
-          </property>
-         </widget>
-         <widget class="QPushButton" name="pushButton_lin_split_OFF_exRelay">
-          <property name="geometry">
-           <rect>
-            <x>220</x>
-            <y>20</y>
-            <width>75</width>
-            <height>24</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>ВЫКЛ</string>
-          </property>
-         </widget>
-         <widget class="QPushButton" name="pushButton_lin_split_ON_exRelay">
-          <property name="geometry">
-           <rect>
-            <x>310</x>
-            <y>20</y>
-            <width>75</width>
-            <height>24</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>ВКЛ</string>
-          </property>
-         </widget>
-         <widget class="QLabel" name="label_17">
-          <property name="geometry">
-           <rect>
-            <x>130</x>
-            <y>20</y>
-            <width>84</width>
-            <height>16</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>Внешнее реле</string>
-          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_14">
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_10">
+             <item>
+              <layout class="QVBoxLayout" name="verticalLayout_11">
+               <item>
+                <widget class="QRadioButton" name="radioButton_lin_lin1">
+                 <property name="text">
+                  <string> LIN - LIN1</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QRadioButton" name="radioButton_lin1_lin2">
+                 <property name="text">
+                  <string>LIN1 - LIN2</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QRadioButton" name="radioButton_lin3_lin4">
+                 <property name="text">
+                  <string> LIN3 - LIN4</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_9">
+               <item>
+                <layout class="QVBoxLayout" name="verticalLayout_10">
+                 <item>
+                  <widget class="QLabel" name="label_17">
+                   <property name="text">
+                    <string>Внешнее реле</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLabel" name="label_24">
+                   <property name="text">
+                    <string>Оптрон DA8</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLabel" name="label_34">
+                   <property name="text">
+                    <string>Оптрон DA22</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+               <item>
+                <layout class="QVBoxLayout" name="verticalLayout_8">
+                 <item>
+                  <widget class="QPushButton" name="pushButton_lin_split_OFF_exRelay">
+                   <property name="text">
+                    <string>ВКЛ</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QPushButton" name="pushButton_lin_split_off_relay">
+                   <property name="text">
+                    <string>ВКЛ</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QPushButton" name="pushButton_lin_split2_on_relay">
+                   <property name="text">
+                    <string>ВКЛ</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+               <item>
+                <layout class="QVBoxLayout" name="verticalLayout_9">
+                 <item>
+                  <widget class="QPushButton" name="pushButton_lin_split_ON_exRelay">
+                   <property name="text">
+                    <string>ВЫКЛ</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QPushButton" name="pushButton_lin_split_on_relay">
+                   <property name="text">
+                    <string>ВЫКЛ</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QPushButton" name="pushButton_lin_split2_off_relay">
+                   <property name="text">
+                    <string>ВЫКЛ</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+              </layout>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_11">
+             <item>
+              <layout class="QVBoxLayout" name="verticalLayout_12">
+               <item>
+                <widget class="QLabel" name="label_15">
+                 <property name="text">
+                  <string>Управление тестом</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <layout class="QHBoxLayout" name="horizontalLayout_15">
+                 <item>
+                  <widget class="QPushButton" name="pushButton_lin_start">
+                   <property name="text">
+                    <string>СТАРТ</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QPushButton" name="pushButton_lin_stop">
+                   <property name="text">
+                    <string>СТОП</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <spacer name="horizontalSpacer_3">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item>
+              <layout class="QVBoxLayout" name="verticalLayout_13">
+               <item>
+                <widget class="QLabel" name="label_22">
+                 <property name="text">
+                  <string>Статус тестирования</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="pushButton_lin_status">
+                 <property name="text">
+                  <string>Статус</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+            </layout>
+           </item>
+          </layout>
          </widget>
         </widget>
         <widget class="QWidget" name="t_can">
@@ -644,7 +633,7 @@
            <x>0</x>
            <y>0</y>
            <width>400</width>
-           <height>322</height>
+           <height>152</height>
           </rect>
          </property>
          <attribute name="label">
@@ -726,14 +715,14 @@
            <item>
             <widget class="QPushButton" name="pushButton_can_OFF_exRelay">
              <property name="text">
-              <string>Выкл. реле</string>
+              <string>ВКЛ</string>
              </property>
             </widget>
            </item>
            <item>
             <widget class="QPushButton" name="pushButton_can_ON_exRelay">
              <property name="text">
-              <string>Вкл. реле</string>
+              <string>ВЫКЛ</string>
              </property>
             </widget>
            </item>
@@ -759,8 +748,20 @@
            <x>0</x>
            <y>0</y>
            <width>400</width>
-           <height>322</height>
+           <height>152</height>
           </rect>
+         </property>
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>0</height>
+          </size>
          </property>
          <property name="toolTip">
           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -788,7 +789,7 @@
            <x>0</x>
            <y>0</y>
            <width>400</width>
-           <height>322</height>
+           <height>152</height>
           </rect>
          </property>
          <attribute name="label">
@@ -906,7 +907,7 @@
            <x>0</x>
            <y>0</y>
            <width>400</width>
-           <height>322</height>
+           <height>152</height>
           </rect>
          </property>
          <attribute name="label">
@@ -919,7 +920,7 @@
            <x>0</x>
            <y>0</y>
            <width>400</width>
-           <height>322</height>
+           <height>152</height>
           </rect>
          </property>
          <attribute name="label">
@@ -932,7 +933,7 @@
            <x>0</x>
            <y>0</y>
            <width>400</width>
-           <height>322</height>
+           <height>152</height>
           </rect>
          </property>
          <attribute name="label">
@@ -1008,7 +1009,7 @@
            <x>0</x>
            <y>0</y>
            <width>400</width>
-           <height>322</height>
+           <height>152</height>
           </rect>
          </property>
          <property name="sizePolicy">
@@ -1183,6 +1184,14 @@
          </widget>
         </widget>
         <widget class="QWidget" name="t_temp">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>400</width>
+           <height>152</height>
+          </rect>
+         </property>
          <attribute name="label">
           <string>Страница</string>
          </attribute>
@@ -1219,7 +1228,7 @@
            <x>0</x>
            <y>0</y>
            <width>400</width>
-           <height>322</height>
+           <height>152</height>
           </rect>
          </property>
          <attribute name="label">
@@ -1344,7 +1353,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1127</width>
+     <width>831</width>
      <height>21</height>
     </rect>
    </property>
