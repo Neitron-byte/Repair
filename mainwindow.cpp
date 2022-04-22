@@ -12,6 +12,128 @@
 #include <QString>
 
 
+void MainWindow::addCheckBoxInVector()
+{
+    //добавление Checkbox-ов в вектор для проверки
+    m_vector_check_starter.push_back(ui->checkBox_0);
+    m_vector_check_starter.push_back(ui->checkBox_23);
+    m_vector_check_starter.push_back(ui->checkBox_24);
+    m_vector_check_starter.push_back(ui->checkBox_25);
+    m_vector_check_starter.push_back(ui->checkBox_31);
+    m_vector_check_starter.push_back(ui->checkBox_32);
+
+    //t_trunk
+    m_vector_check_trunk.push_back(ui->checkBox_6);
+    m_vector_check_trunk.push_back(ui->checkBox_7);
+    m_vector_check_trunk.push_back(ui->checkBox_8);
+
+    //t_brake
+    m_vector_check_brake.push_back(ui->checkBox_3);
+    m_vector_check_brake.push_back(ui->checkBox_4);
+    m_vector_check_brake.push_back(ui->checkBox_17);
+
+    //t_hood
+    m_vector_check_hood.push_back(ui->checkBox_9);
+    m_vector_check_hood.push_back(ui->checkBox_CH);
+
+    //t_IGN_IN
+    m_vector_check_IGN_IN.push_back(ui->checkBox_BYPASS);
+
+    //для t_btn
+    m_vector_check_t_btn.push_back(ui->checkBox_34);
+    //для t_siren_rpm
+    m_vector_check_siren_rpm.push_back(ui->checkBox_5);
+
+}
+
+void MainWindow::RadioButtonIOinInVector()
+{
+    m_vector_test_IO.push_back(ui->radioButton_t_starter);
+    m_vector_test_IO.push_back(ui->radioButton_t_trunk);
+    m_vector_test_IO.push_back(ui->radioButton_t_brake);
+    m_vector_test_IO.push_back(ui->radioButton_t_CH9_hood);
+    m_vector_test_IO.push_back(ui->radioButton_t_IgnN);
+    m_vector_test_IO.push_back(ui->radioButton_t_btn);
+    m_vector_test_IO.push_back(ui->radioButton_t_siren_rpm);
+}
+
+void MainWindow::setProperty()
+{
+    //для Com
+
+    //для t_starter
+    ui->checkBox_0->setProperty("id",0);
+    ui->checkBox_23->setProperty("id",23);
+    ui->checkBox_24->setProperty("id",24);
+    ui->checkBox_25->setProperty("id",25);
+    ui->checkBox_31->setProperty("id",31);
+    ui->checkBox_32->setProperty("id",32);
+
+    // для trunk
+    ui->checkBox_6->setProperty("id",6);
+    ui->checkBox_7->setProperty("id",7);
+    ui->checkBox_8->setProperty("id",8);
+
+    // для brake
+    ui->checkBox_3->setProperty("id",3);
+    ui->checkBox_4->setProperty("id",4);
+    ui->checkBox_17->setProperty("id",17);
+
+    // для hood
+    ui->checkBox_9->setProperty("id",9);
+    ui->checkBox_CH->setProperty("id",7);
+
+    //IGN IN
+
+    ui->checkBox_BYPASS->setProperty("id",3);
+
+    //t_btn
+    ui->checkBox_34->setProperty("id",34);
+
+    //t_siren
+    ui->checkBox_5->setProperty("id",5);
+
+
+    for (int var = 0; var < m_vector_test_IO.size(); ++var) {
+        m_vector_test_IO[var]->setProperty("Num",100+var);
+    }
+
+    //Проверка нумерации RadioButton Test IO
+//    for (auto var : m_vector_test_IO) {
+//        qDebug() << "Свойства "<< var->text() << var->property("Num");
+//    }
+
+}
+
+QVariant MainWindow::CheckEnabledRadioButton()
+{
+    for (int var = 0; var < m_vector_test_IO.size(); ++var) {
+        if(m_vector_test_IO[var]->isChecked()){
+            return m_vector_test_IO[var]->property("Num");
+        }
+    }
+    return 0;
+}
+
+void MainWindow::controlIO(QVector<QCheckBox *> & rvector)
+{
+
+        QByteArray cmd (":OUT CTRL ");
+        for (int var = 0; var < rvector.size(); ++var) {
+            if (rvector[var]->isChecked()){
+                qDebug() << "Выбран " << rvector[var]->property("id").toInt();
+                cmd += rvector[var]->property("id").toByteArray();
+                cmd += "+,";
+            } else {
+                cmd += rvector[var]->property("id").toByteArray();
+                cmd += "-,";
+            }
+
+        }
+        cmd+="\r";
+        writeData(cmd);
+}
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -44,7 +166,7 @@ MainWindow::MainWindow(QWidget *parent)
     //добавление консоли на компоновщик
     ui->verticalLayout->addWidget(m_console);
     //Название
-    this->setWindowTitle(tr("Diagnostic Software Starline"));
+    this->setWindowTitle(tr("Diagnostic Software Starline ver. 1.0"));
     //lock ToolBox
     ui->toolBox_Device->setEnabled(false);
 
@@ -58,36 +180,45 @@ MainWindow::MainWindow(QWidget *parent)
     //комментарии и Db
     ui->verticalLayout_4->addWidget(m_comments);
 
+
+
+    //Добавление в вектора CheckBoxы
+    this->addCheckBoxInVector();
+    //Добавление в вектор RadioButton IO Test
+    this->RadioButtonIOinInVector();
+
     //добавление свойств к виджетам.
     this->setProperty();
 
-    //добавление Checkbox-ов в вектор для проверки
-    m_vector_check_starter.push_back(ui->checkBox_23);
-    m_vector_check_starter.push_back(ui->checkBox_24);
-    m_vector_check_starter.push_back(ui->checkBox_25);
-    m_vector_check_starter.push_back(ui->checkBox_31);
-    m_vector_check_starter.push_back(ui->checkBox_32);
 }
 
 MainWindow::~MainWindow()
 {
+
     delete ui;
+
+    if (m_console){
+        delete m_console;
+        qDebug() << "Удаление консоли";
+    }
+
     if(m_serial->isOpen()){
         m_serial->close();
     }
     if (m_serial){
+        qDebug() << "Удаление COM";
         delete m_serial;
     }
     if(m_status){
+        qDebug() << "Удаление status";
         delete m_status;
     }
-    if (m_console){
-        delete m_console;
-    }
-    if (model){
-        delete model;
-    }
 
+
+    if (m_comments){
+        qDebug() << "Удаление Коментариев";
+        delete m_comments;
+    }
 
 }
 
@@ -261,7 +392,10 @@ void MainWindow::initActionsConnections(){
      connect(ui->action_Connect_2, &QAction::triggered, this, &MainWindow::on_pushButton_Open_COM_clicked);
      connect(ui->action_Disconnect_2, &QAction::triggered, this, &MainWindow::closeSerialPort);
      connect(ui->action_Clear_2,&QAction::triggered,this, &MainWindow::clear);
-     connect(ui->action_About,&QAction::triggered,this, &MainWindow::abouts);     
+     connect(ui->action_About,&QAction::triggered,this, &MainWindow::abouts);
+     connect(ui->action_New_connection, &QAction::triggered, this, &MainWindow::on_pushButton_Open_COM_clicked);
+     connect(ui->actionDisconnect, &QAction::triggered, this, &MainWindow::closeSerialPort);
+
 }
 
 void MainWindow::initWidgets()
@@ -274,19 +408,6 @@ void MainWindow::initWidgets()
 }
 
 
-void MainWindow::setProperty()
-{
-    //для Com
-
-    //для t_starter
-    ui->checkBox_23->setProperty("id",23);
-    ui->checkBox_24->setProperty("id",24);
-    ui->checkBox_25->setProperty("id",25);
-    ui->checkBox_31->setProperty("id",31);
-    ui->checkBox_32->setProperty("id",32);
-
-
-}
 
 void MainWindow::initToolBox_db()
 {
@@ -298,7 +419,7 @@ void MainWindow::initToolBox_db()
     int index = ui->toolBox_Device->currentIndex();
     m_comments->setCurrentTable(m_test_db_error[index].second.first);
 
-    ui->toolBox_Device->setCurrentIndex(0);
+    ui->toolBox_Device->setCurrentIndex(11);
 }
 
 void MainWindow::on_pushButton_2_clicked()
@@ -308,26 +429,26 @@ void MainWindow::on_pushButton_2_clicked()
 }
 
 
-void MainWindow::on_pushButton_lin_split_clicked()
-{
-    QByteArray cmd (":LIN LOOP 1\r");
-    writeData(cmd);   
-}
+//void MainWindow::on_pushButton_lin_split_clicked()
+//{
+//    QByteArray cmd (":LIN LOOP 1\r");
+//    writeData(cmd);
+//}
 
 
-void MainWindow::on_pushButton_lin_split_2_clicked()
-{
-    QByteArray cmd (":LIN LOOP 0\r");
-    writeData(cmd);
-}
+//void MainWindow::on_pushButton_lin_split_2_clicked()
+//{
+//    QByteArray cmd (":LIN LOOP 0\r");
+//    writeData(cmd);
+//}
 
 
-void MainWindow::on_pushButton_lin_split_status_clicked()
-{
-    QByteArray cmd (":LIN ?\r");
-    writeData(cmd);
+//void MainWindow::on_pushButton_lin_split_status_clicked()
+//{
+//    QByteArray cmd (":LIN ?\r");
+//    writeData(cmd);
 
-}
+//}
 
 
 void MainWindow::on_pushButton_lin_split_OFF_exRelay_clicked()
@@ -337,18 +458,18 @@ void MainWindow::on_pushButton_lin_split_OFF_exRelay_clicked()
 }
 
 
-void MainWindow::on_pushButton_lin_split_on_clicked()
-{
-    QByteArray cmd (":LIN SPLIT 1\r");
-    writeData(cmd);
-}
+//void MainWindow::on_pushButton_lin_split_on_clicked()
+//{
+//    QByteArray cmd (":LIN SPLIT 1\r");
+//    writeData(cmd);
+//}
 
 
-void MainWindow::on_pushButton_lin_split_off_clicked()
-{
-    QByteArray cmd (":LIN SPLIT 0\r");
-    writeData(cmd);
-}
+//void MainWindow::on_pushButton_lin_split_off_clicked()
+//{
+//    QByteArray cmd (":LIN SPLIT 0\r");
+//    writeData(cmd);
+//}
 
 
 void MainWindow::on_pushButton_lin_split_off_relay_clicked()
@@ -358,11 +479,11 @@ void MainWindow::on_pushButton_lin_split_off_relay_clicked()
 }
 
 
-void MainWindow::on_pushButton_split_status_clicked()
-{
-    QByteArray cmd (":LIN SPLIT ?\r");
-    writeData(cmd);
-}
+//void MainWindow::on_pushButton_split_status_clicked()
+//{
+//    QByteArray cmd (":LIN SPLIT ?\r");
+//    writeData(cmd);
+//}
 
 
 void MainWindow::on_pushButton_lin_split_ON_exRelay_clicked()
@@ -454,20 +575,38 @@ void MainWindow::on_pushButton_4_clicked()
 
 void MainWindow::on_pushButton_ON_clicked()
 {
-    QByteArray cmd (":OUT CTRL ");
-    for (int var = 0; var < m_vector_check_starter.size(); ++var) {
-        if (m_vector_check_starter[var]->isChecked()){
-            qDebug() << "Выбран " << m_vector_check_starter[var]->property("id").toInt();
-            cmd += m_vector_check_starter[var]->property("id").toByteArray();
-            cmd += "+,";
-        } else {
-            cmd += m_vector_check_starter[var]->property("id").toByteArray();
-            cmd += "-,";
-        }
+    QVariant Num = CheckEnabledRadioButton();
 
+    //qDebug() << Num.toUInt();
+
+    switch (Num.toUInt()) {
+    case 100:
+        controlIO(m_vector_check_starter);
+        break;
+    case 101:
+        controlIO(m_vector_check_trunk);
+        break;
+    case 102:
+        controlIO(m_vector_check_brake);
+        break;
+    case 103:
+        controlIO(m_vector_check_hood);
+        break;
+    case 104:
+        controlIO(m_vector_check_IGN_IN);
+        break;
+    case 105:
+        controlIO(m_vector_check_t_btn);
+        break;
+    case 106:
+        controlIO(m_vector_check_siren_rpm);
+        break;
+    default:
+
+        break;
     }
-    cmd+="\r";
-    writeData(cmd);
+
+
 }
 
 
@@ -602,6 +741,41 @@ void MainWindow::on_pushButton_lin_split2_on_relay_clicked()
 void MainWindow::on_pushButton_lin_split2_off_relay_clicked()
 {
     QByteArray cmd (":OUT CTRL 42+\r");
+    writeData(cmd);
+}
+
+
+void MainWindow::on_pushButton_start_gps_clicked()
+{
+    QByteArray cmd (":GPS LOOP 1\r");
+    writeData(cmd);
+}
+
+
+void MainWindow::on_pushButton_stop_gps_clicked()
+{
+    QByteArray cmd (":GPS LOOP 0\r");
+    writeData(cmd);
+}
+
+
+void MainWindow::on_pushButton_status_gps_clicked()
+{
+    QByteArray cmd (":GPS ?\r");
+    writeData(cmd);
+}
+
+
+void MainWindow::on_pushButton_status_acc_clicked()
+{
+    QByteArray cmd (":ACC ?\r");
+    writeData(cmd);
+}
+
+
+void MainWindow::on_pushButton_itemp_clicked()
+{
+    QByteArray cmd (":ITEMP_ACC?\r");
     writeData(cmd);
 }
 

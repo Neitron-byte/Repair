@@ -2,7 +2,7 @@
 #define COMMENTS_H
 
 #include <QWidget>
-#include <QSQLDatabase>
+#include <QSqlDatabase>
 #include <QStringList>
 #include <QSqlQuery>
 #include <QSqlTableModel>

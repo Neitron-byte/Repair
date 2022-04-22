@@ -10,7 +10,8 @@
 #include <QCheckBox>
 #include <QPair>
 #include "comments.h"
-
+#include <QRadioButton>
+#include <QVariant>
 
 
 
@@ -24,6 +25,14 @@ class QSqlTableModel;
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
+
+    void addCheckBoxInVector();
+    void RadioButtonIOinInVector();
+    void setProperty();
+    QVariant CheckEnabledRadioButton();
+    void controlIO(QVector<QCheckBox*>&);
+
+
 
 public:
     MainWindow(QWidget *parent = nullptr);
@@ -68,29 +77,17 @@ private slots:
 
     void clear();
 
-    void on_pushButton_2_clicked();
+    void on_pushButton_2_clicked();      
 
-    void on_pushButton_lin_split_clicked();
+    void on_pushButton_lin_split_OFF_exRelay_clicked();        
 
-    void on_pushButton_lin_split_2_clicked();
-
-    void on_pushButton_lin_split_status_clicked();
-
-    void on_pushButton_lin_split_OFF_exRelay_clicked();
-
-    void on_pushButton_lin_split_on_clicked();
-
-    void on_pushButton_lin_split_off_clicked();
-
-    void on_pushButton_lin_split_off_relay_clicked();
-
-    void on_pushButton_split_status_clicked();
+    void on_pushButton_lin_split_off_relay_clicked();    
 
     void on_pushButton_lin_split_ON_exRelay_clicked();
 
     void on_pushButton_lin_split_on_relay_clicked();
 
-    void abouts();
+
 
     void on_pushButton_can_test_on_clicked();
 
@@ -128,9 +125,6 @@ private slots:
 
     void on_pushButton_t_mem_id_clicked();
 
-
-
-
     void on_pushButton_sn_clicked();
 
     void on_pushButton_erase_eeprom_clicked();
@@ -147,12 +141,26 @@ private slots:
 
     void on_pushButton_lin_split2_off_relay_clicked();
 
+    void on_pushButton_start_gps_clicked();
+
+    void on_pushButton_stop_gps_clicked();
+
+    void on_pushButton_status_gps_clicked();
+
+    void on_pushButton_status_acc_clicked();
+
+    void on_pushButton_itemp_clicked();
+
+public slots:
+    void abouts();
+
+
 private:
 
     void showStatusMessage(const QString &message);
     void initActionsConnections();
     void initWidgets();
-    void setProperty();
+
     void initToolBox_db();
 
     Ui::MainWindow *ui;
@@ -161,7 +169,7 @@ private:
     Console *m_console = nullptr;
 
     // COM порт
-    QSerialPort* m_serial;
+    QSerialPort* m_serial = nullptr;
 
     //список доступных портов
     QStringList m_listCom;
@@ -169,17 +177,31 @@ private:
     //статус подключения к COM
     QLabel *m_status = nullptr;
 
-    //модель таблицы
-    QSqlTableModel *model;
-
     //перечень таблиц
     QStringList m_listTable;
 
     //Комментарии
     comments* m_comments = nullptr;
 
+    //RadioButton IO Test
+    QVector<QRadioButton*> m_vector_test_IO;
     //для стартера
     QVector<QCheckBox*> m_vector_check_starter;
+    //для t_TRUNK
+    QVector<QCheckBox*> m_vector_check_trunk;
+    //для t_brake
+    QVector<QCheckBox*> m_vector_check_brake;
+    //для t_hoode
+    QVector<QCheckBox*> m_vector_check_hood;
+
+    //для t_hoode
+    QVector<QCheckBox*> m_vector_check_IGN_IN;
+
+    //для t_btn
+    QVector<QCheckBox*> m_vector_check_t_btn;
+
+    //для t_siren_rpm
+    QVector<QCheckBox*> m_vector_check_siren_rpm;
 
 
     QVector<QPair<QString,QPair<QString,QString>>> m_test_db_error {

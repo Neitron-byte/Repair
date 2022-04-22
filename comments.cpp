@@ -40,9 +40,9 @@ void comments::updateTable()
 
     m_listTable = m_db.tables();
 
-    for (QString str : m_listTable) {
-        qDebug() << str;
-    }
+//    for (QString str : m_listTable) {
+//        qDebug() << str;
+//    }
 
 }
 
@@ -59,7 +59,7 @@ comments::comments(QWidget *parent) :
     updateTable();
     m_currentTable = "";
 
-
+    qDebug() << QSqlDatabase::drivers();
 }
 
 comments::~comments()
