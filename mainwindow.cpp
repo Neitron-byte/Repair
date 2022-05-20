@@ -43,6 +43,8 @@ void MainWindow::addCheckBoxInVector()
     m_vector_check_t_btn.push_back(ui->checkBox_34);
     //для t_siren_rpm
     m_vector_check_siren_rpm.push_back(ui->checkBox_5);
+    //для t_parking
+    m_vector_check_parking.push_back(ui->checkBox_30);
 
 }
 
@@ -55,6 +57,7 @@ void MainWindow::RadioButtonIOinInVector()
     m_vector_test_IO.push_back(ui->radioButton_t_IgnN);
     m_vector_test_IO.push_back(ui->radioButton_t_btn);
     m_vector_test_IO.push_back(ui->radioButton_t_siren_rpm);
+    m_vector_test_IO.push_back(ui->radioButton_t_parking);
 }
 
 void MainWindow::setProperty()
@@ -92,6 +95,10 @@ void MainWindow::setProperty()
 
     //t_siren
     ui->checkBox_5->setProperty("id",5);
+
+    //t_parking
+    ui->checkBox_30->setProperty("id",30);
+
 
 
     for (int var = 0; var < m_vector_test_IO.size(); ++var) {
@@ -166,7 +173,7 @@ MainWindow::MainWindow(QWidget *parent)
     //добавление консоли на компоновщик
     ui->verticalLayout->addWidget(m_console);
     //Название
-    this->setWindowTitle(tr("Diagnostic Software Starline ver. 1.0"));
+    this->setWindowTitle(tr("Diagnostic Software Starline ver. 1.2"));
     //lock ToolBox
     ui->toolBox_Device->setEnabled(false);
 
@@ -389,12 +396,10 @@ void MainWindow::on_pushButton_CH02_OFF_clicked()
 }
 
 void MainWindow::initActionsConnections(){
-     connect(ui->action_Connect_2, &QAction::triggered, this, &MainWindow::on_pushButton_Open_COM_clicked);
-     connect(ui->action_Disconnect_2, &QAction::triggered, this, &MainWindow::closeSerialPort);
-     connect(ui->action_Clear_2,&QAction::triggered,this, &MainWindow::clear);
-     connect(ui->action_About,&QAction::triggered,this, &MainWindow::abouts);
-     connect(ui->action_New_connection, &QAction::triggered, this, &MainWindow::on_pushButton_Open_COM_clicked);
-     connect(ui->actionDisconnect, &QAction::triggered, this, &MainWindow::closeSerialPort);
+     connect(ui->action_New_connect, &QAction::triggered, this, &MainWindow::on_pushButton_Open_COM_clicked);
+     connect(ui->action_Disconnect, &QAction::triggered, this, &MainWindow::closeSerialPort);
+     connect(ui->action_Clear,&QAction::triggered,this, &MainWindow::clear);
+     connect(ui->action_information,&QAction::triggered,this, &MainWindow::abouts);
 
 }
 
@@ -503,9 +508,9 @@ void MainWindow::abouts()
 {
 
         QMessageBox::about(this, tr("Приложениe диагностики Starline."),
-                           tr("Приложение разработано для диагностики изделий Starline: ОБ ES96,S96.\r"
-                              "Разработал инженер по тестированию НПО \"Starline\" - Якимов Николай Анатольевич. \r"
-                              "E-mail: yakimov.na@starline.ru \r"));
+                           tr("Приложение разработано для диагностики изделий Starline: ОБ ES96,S96.\r\n"
+                              "Разработал инженер по тестированию НПО \"Starline\" - Якимов Н.А.\r\n"
+                              "E-mail: yakimov.na@starline.ru\r"));
 
 }
 
@@ -600,6 +605,9 @@ void MainWindow::on_pushButton_ON_clicked()
         break;
     case 106:
         controlIO(m_vector_check_siren_rpm);
+        break;
+    case 107:
+        controlIO(m_vector_check_parking);
         break;
     default:
 

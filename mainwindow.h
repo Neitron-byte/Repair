@@ -202,17 +202,18 @@ private:
 
     //для t_siren_rpm
     QVector<QCheckBox*> m_vector_check_siren_rpm;
+    //для t_parking
+    QVector<QCheckBox*> m_vector_check_parking;
+
 
 
     QVector<QPair<QString,QPair<QString,QString>>> m_test_db_error {
-        {"Проверка SN. ",{"t_sn","E0"}},
+        {"Проверка SN,питания,ACC.",{"t_sn","E0,E6,E20"}},
         {"Тестирование памяти. ", {"t_mem","E2,E15"}},
         {"Тестирование LIN. ",{"t_lin","E3,E5,E37,E39"}},
-        {"Тестирование CAN. ",{"t_can","E4,E5"}},
-        {"Проверка питания. ", {"t_pwr","E6"}},
+        {"Тестирование CAN. ",{"t_can","E4,E5"}},        
         {"Проверка GSM. ",{"t_gsm","E18,E35"}},
-        {"Проверка GPS. ",{"t_gps","E19"}},
-        {"Проверка ACC. ",{"t_acc","E20"}},
+        {"Проверка GPS. ",{"t_gps","E19"}},       
         {"Проверка BLE. ",{"t_ble","E22,E32"}},
         {"Проверка MIC. ",{"t_ai_mic","E34"}},
         {"Проверка температуры. ",{"t_temp","E17"}},
